@@ -86,7 +86,7 @@ const CreateAdvisory = () => {
 
   return (
     <div>
-      <h2 className="text-center mb-5">Crear asesoria</h2>
+      <h2 className="text-center mb-5 mt-5">Crear asesoria</h2>
       {state ? (
         <Loading />
       ) : (
