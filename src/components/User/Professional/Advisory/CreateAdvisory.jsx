@@ -80,8 +80,8 @@ const CreateAdvisory = () => {
 
   useEffect(() => {
     document.title = "Crear asesoria";
-    changeState();
     getAllCustomers();
+    changeState();
   }, []);
 
   return (
