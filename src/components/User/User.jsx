@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Professional from "./Professional/Professional";
+import ProfessionalProfile from "./Professional/Profile/ProfessionalProfile";
 
 const User = () => {
   const [rol, setRol] = useState();
@@ -9,11 +9,11 @@ const User = () => {
   }, []);
 
   const userUser = {
-    2: <Professional />,
+    2: <ProfessionalProfile />,
     3: <h2>Perfil cliente</h2>,
   };
 
-  return <div>{userUser[rol]}</div>;
+  return <div className="mt-5">{userUser[rol]}</div>;
 };
 
 export default User;

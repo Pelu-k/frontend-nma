@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Form, FloatingLabel, Button, Alert } from "react-bootstrap";
+import {
+  Form,
+  FloatingLabel,
+  Button,
+  Alert,
+  Row,
+  Container,
+  Col,
+} from "react-bootstrap";
 import { IoIosSend } from "react-icons/io";
 import Loading from "../../../Utils/Loading/Loading";
+import DashboardProfessional from "../DashboardProfessional";
 
 const CreateAdvisory = () => {
   const [state, setState] = useState(true);
@@ -85,95 +94,116 @@ const CreateAdvisory = () => {
   }, []);
 
   return (
-    <div>
-      <h2 className="text-center mb-5 mt-5">Crear asesoria</h2>
-      {state ? (
-        <Loading />
-      ) : (
-        <div>
-          <Form>
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Nombre asesoria" controlId="nameAdvisory">
-                <Form.Control
-                  type="text"
-                  onChange={(e) => setNameAdvisory(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              {customers.length > 0 ? (
-                <FloatingLabel label="Cliente" controlId="idClient">
-                  <Form.Select onChange={(e) => setIdClient(e.target.value)}>
-                    <option disable>Seleccionar cliente</option>
-                    {customers.map((client) => (
-                      <option key={client.id} value={client.id}>
-                        {client.nombre}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </FloatingLabel>
-              ) : (
-                <Alert variant="danger">
-                  Error al obtener la lista de clientes
-                </Alert>
-              )}
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Checklist" controlId="checklist">
-                <Form.Control
-                  type="text"
-                  onChange={(e) => setChecklist(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Fecha creacion" controlId="createDate">
-                <Form.Control
-                  type="date"
-                  onChange={(e) => setCreateDate(new Date(e.target.value))}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Fecha limite" controlId="deadline">
-                <Form.Control
-                  type="date"
-                  onChange={(e) => setDeadline(new Date(e.target.value))}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Fecha termino" controlId="endDate">
-                <Form.Control
-                  type="date"
-                  onChange={(e) => setEndDate(new Date(e.target.value))}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Valor" controlId="price">
-                <Form.Control
-                  type="text"
-                  onChange={(e) => setPrice(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            {customers.length > 0 ? (
-              <div className="d-grid gap-2">
-                <Button
-                  variant="outline-primary"
-                  size="lg"
-                  onClick={createAdvisory}
-                >
-                  <strong>Crear</strong> <IoIosSend />
-                </Button>
-              </div>
+    <div className="mt-5">
+      <Container>
+        <Row>
+          <Col sm={3}>
+            <DashboardProfessional />
+          </Col>
+          <Col sm={9}>
+            <h2 className="text-center mb-5 mt-5">Crear asesoria</h2>
+            {state ? (
+              <Loading />
             ) : (
-              <Alert variant="danger">No es posible crear una asesoria</Alert>
+              <div>
+                <Form>
+                  <Form.Group className="mb-3">
+                    <FloatingLabel
+                      label="Nombre asesoria"
+                      controlId="nameAdvisory"
+                    >
+                      <Form.Control
+                        type="text"
+                        onChange={(e) => setNameAdvisory(e.target.value)}
+                      />
+                    </FloatingLabel>
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    {customers.length > 0 ? (
+                      <FloatingLabel label="Cliente" controlId="idClient">
+                        <Form.Select
+                          onChange={(e) => setIdClient(e.target.value)}
+                        >
+                          <option disable>Seleccionar cliente</option>
+                          {customers.map((client) => (
+                            <option key={client.id} value={client.id}>
+                              {client.nombre}
+                            </option>
+                          ))}
+                        </Form.Select>
+                      </FloatingLabel>
+                    ) : (
+                      <Alert variant="danger">
+                        Error al obtener la lista de clientes
+                      </Alert>
+                    )}
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <FloatingLabel label="Checklist" controlId="checklist">
+                      <Form.Control
+                        type="text"
+                        onChange={(e) => setChecklist(e.target.value)}
+                      />
+                    </FloatingLabel>
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <FloatingLabel
+                      label="Fecha creacion"
+                      controlId="createDate"
+                    >
+                      <Form.Control
+                        type="date"
+                        onChange={(e) =>
+                          setCreateDate(new Date(e.target.value))
+                        }
+                      />
+                    </FloatingLabel>
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <FloatingLabel label="Fecha limite" controlId="deadline">
+                      <Form.Control
+                        type="date"
+                        onChange={(e) => setDeadline(new Date(e.target.value))}
+                      />
+                    </FloatingLabel>
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <FloatingLabel label="Fecha termino" controlId="endDate">
+                      <Form.Control
+                        type="date"
+                        onChange={(e) => setEndDate(new Date(e.target.value))}
+                      />
+                    </FloatingLabel>
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <FloatingLabel label="Valor" controlId="price">
+                      <Form.Control
+                        type="text"
+                        onChange={(e) => setPrice(e.target.value)}
+                      />
+                    </FloatingLabel>
+                  </Form.Group>
+                  {customers.length > 0 ? (
+                    <div className="d-grid gap-2">
+                      <Button
+                        variant="outline-primary"
+                        size="lg"
+                        onClick={createAdvisory}
+                      >
+                        <strong>Crear</strong> <IoIosSend />
+                      </Button>
+                    </div>
+                  ) : (
+                    <Alert variant="danger">
+                      No es posible crear una asesoria
+                    </Alert>
+                  )}
+                </Form>
+              </div>
             )}
-          </Form>
-        </div>
-      )}
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

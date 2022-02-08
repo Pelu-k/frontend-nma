@@ -39,8 +39,8 @@ const NavBar = () => {
             </Nav>
             <Nav>
               {token ? (
-                <NavDropdown title={nombre} id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="/User">Perfil</NavDropdown.Item>
+                <NavDropdown title={nombre} id="collasible-nav-dropdown" style={{ color: 'white' }}>
+                  <NavDropdown.Item href="/user/profile">Perfil</NavDropdown.Item>
                   <NavDropdown.Item href="#!">Dashboard</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#!" onClick={logout}>
@@ -48,7 +48,7 @@ const NavBar = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link href="login" style={{ color: 'white'}}>
+                <Nav.Link href="login" style={{ color: 'white' }}>
                   <BiLogIn/> Login
                 </Nav.Link>
               )}

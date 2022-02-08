@@ -4,6 +4,8 @@ import AboutUs from "../AboutUs/AboutUs";
 import Error404 from "../Error404/Error404";
 import Home from "../Home/Home";
 import Login from "../Login/Login";
+import CreateAdvisory from "../User/Professional/Advisory/CreateAdvisory";
+import UpdateAdvisory from "../User/Professional/Advisory/UpdateAdvisory";
 import User from "../User/User";
 
 const AppRouter = () => {
@@ -18,7 +20,9 @@ const AppRouter = () => {
   const protectedRoutes = {
     2: // Rutas protegidas profesional
     <>
-      <Route path="/user" element={<User />} exact/>
+      <Route path="/user/profile" element={<User />} exact/>
+      <Route path="/user/advisory/create" element={<CreateAdvisory/>} exact/>
+      <Route path="/user/advisory/update" element={<UpdateAdvisory/>} exact/>
     </>,
     3: <>
     
