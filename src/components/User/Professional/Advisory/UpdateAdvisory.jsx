@@ -42,7 +42,7 @@ const UpdateAdvisory = () => {
         }),
       });
       alert("Asesoria cancelada");
-      setConsultancies([]);
+      window.location.reload();
     } catch (error) {
       alert(error);
     }
