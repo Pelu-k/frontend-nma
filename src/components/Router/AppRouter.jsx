@@ -24,8 +24,9 @@ const AppRouter = () => {
       <Route path="/user/advisory/create" element={<CreateAdvisory/>} exact/>
       <Route path="/user/advisory/update" element={<UpdateAdvisory/>} exact/>
     </>,
-    3: <>
-    
+    3: 
+    <>
+      <Route path="/user/profile" element={<User />} exact/>
     </>
   }
 
