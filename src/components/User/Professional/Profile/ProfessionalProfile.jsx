@@ -4,7 +4,7 @@ import DashboardProfessional from "../DashboardProfessional";
 
 const ProfessionalProfile = () => {
   return (
-    <div>
+    <div className="mt-5">
       <Container>
         <Row>
           <Col sm={3}>

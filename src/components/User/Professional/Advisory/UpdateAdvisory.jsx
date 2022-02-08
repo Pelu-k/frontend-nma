@@ -70,7 +70,7 @@ const UpdateAdvisory = () => {
             <DashboardProfessional />
           </Col>
           <Col sm={9}>
-            <h2 className="text-center mb-5 mt-5">Actualizar asesoria</h2>
+            <h2 className="text-center mb-5">Actualizar asesoria</h2>
             {state ? (
               <Loading />
             ) : (
