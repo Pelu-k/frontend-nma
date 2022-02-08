@@ -18,7 +18,7 @@ const DashboardProfessional = () => {
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
-          <Accordion.Header>Tareas</Accordion.Header>
+          <Accordion.Header>Actividad</Accordion.Header>
           <Accordion.Body>
             <div className="d-grid gap-2">
               <Button variant="outline-primary" onClick={() => window.location.href = "#!"}>Crear</Button>
