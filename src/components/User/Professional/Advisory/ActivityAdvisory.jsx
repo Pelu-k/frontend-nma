@@ -37,6 +37,7 @@ const ActivityAdvisory = () => {
     },
   };
 
+  //#region Obtener asesorias
   const getAllConsultanciesByProfessionalId = async () => {
     try {
       const res = await fetch(`${URL}/${idUsuario}`, OPTIONS_GET);
@@ -46,13 +47,6 @@ const ActivityAdvisory = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    document.title = "Actividades";
-    getAllConsultanciesByProfessionalId();
-    changeState();
-  }, []);
-
   // Ordenar asesorias por nombre
   const ordered = consultancies.sort((a, b) => {
     if (a.nombre > b.nombre) {
@@ -72,8 +66,16 @@ const ActivityAdvisory = () => {
     },
     [{}]
   );
-
+  // Obtener los nombres de las asesorias
   const keys = Object.keys(groupBy);
+  //#endregion
+  
+  useEffect(() => {
+    document.title = "Actividades";
+    getAllConsultanciesByProfessionalId();
+    changeState();
+  }, []);
+
 
   return (
     <div className="mt-5">
