@@ -5,6 +5,7 @@ import Error404 from "../Error404/Error404";
 import Home from "../Home/Home";
 import Login from "../Login/Login";
 import ActivityAdvisory from "../User/Professional/Advisory/ActivityAdvisory";
+import AddActivityAdvisory from "../User/Professional/Advisory/AddActivityAdvisory";
 import CreateAdvisory from "../User/Professional/Advisory/CreateAdvisory";
 import UpdateAdvisory from "../User/Professional/Advisory/UpdateAdvisory";
 import User from "../User/User";
@@ -25,6 +26,7 @@ const AppRouter = () => {
       <Route path="/user/advisory/create" element={<CreateAdvisory />} exact/>
       <Route path="/user/advisory/update" element={<UpdateAdvisory />} exact/>
       <Route path="/user/advisory/activity" element={<ActivityAdvisory />} exact/>
+      <Route path="/user/advisory/activity/add/:id" element={<AddActivityAdvisory />} exact/>
     </>,
     3: 
     <>

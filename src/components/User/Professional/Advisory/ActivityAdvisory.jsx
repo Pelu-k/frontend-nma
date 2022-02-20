@@ -17,17 +17,18 @@ import { MdModeEditOutline } from "react-icons/md";
 const ActivityAdvisory = () => {
   const idUsuario = localStorage.getItem("idUsuario");
 
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(true);
   const [consultancies, setConsultancies] = useState([]);
+  const [activities, setActivities] = useState([]);
 
   const changeState = () => {
-    setState(false);
+    setState(true);
     setTimeout(() => {
       setState(false);
     }, 3000);
   };
 
-  const URL = "http://localhost:8080/api/advisory";
+  const URL = "http://localhost:8080/api";
   const OPTIONS_GET = {
     method: "GET",
     headers: {
@@ -40,13 +41,24 @@ const ActivityAdvisory = () => {
   //#region Obtener asesorias
   const getAllConsultanciesByProfessionalId = async () => {
     try {
-      const res = await fetch(`${URL}/${idUsuario}`, OPTIONS_GET);
+      const res = await fetch(`${URL}/advisory/${idUsuario}`, OPTIONS_GET);
       const data = await res.json();
       setConsultancies(data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getAllActivities = async () => {
+    try {
+      const res = await fetch(`${URL}/all-activities`, OPTIONS_GET);
+      const data = await res.json();
+      setActivities(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Ordenar asesorias por nombre
   const ordered = consultancies.sort((a, b) => {
     if (a.nombre > b.nombre) {
@@ -69,13 +81,13 @@ const ActivityAdvisory = () => {
   // Obtener los nombres de las asesorias
   const keys = Object.keys(groupBy);
   //#endregion
-  
+
   useEffect(() => {
     document.title = "Actividades";
     getAllConsultanciesByProfessionalId();
+    getAllActivities();
     changeState();
   }, []);
-
 
   return (
     <div className="mt-5">
@@ -91,55 +103,60 @@ const ActivityAdvisory = () => {
             ) : consultancies.length > 0 ? (
               <div>
                 <Accordion defaultActiveKey="0">
-                  {keys.map((key, index) =>
-                    key === "0" ? null : (
-                      <Accordion.Item eventKey={index}>
-                        <Accordion.Header>{key}</Accordion.Header>
-                        <Accordion.Body>
-                          <div className="d-grid justify-content-md-end">
-                            <Button
-                              variant="outline-primary"
-                              className="mx-auto mb-2"
-                            >
-                              <AiOutlinePlus /> Agregar
-                            </Button>
-                          </div>
+                  {consultancies.map((advisory, index) => (
+                    <Accordion.Item eventKey={index}>
+                      <Accordion.Header>{advisory.nombre}</Accordion.Header>
+                      <Accordion.Body>
+                        <div>
                           <Table>
                             <thead>
                               <tr>
-                                <th>Nombre Empresa</th>
-                                <th>Valor </th>
+                                <th>Nombre empresa</th>
                                 <th>Estado</th>
-                                <th className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                  Acciones
-                                </th>
+                                <th></th>
                               </tr>
                             </thead>
-                            {groupBy[key].map((advisory) => (
-                              <tbody>
-                                <tr>
-                                  <td>{advisory.nombreEmpresa}</td>
-                                  <td>{advisory.valor}</td>
-                                  <td>{advisory.estado}</td>
-                                  <td className="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <tbody>
+                              <tr>
+                                <td>{advisory.nombreEmpresa}</td>
+                                <td>{advisory.estado}</td>
+                                <td>
+                                  <div className="d-grid justify-content-md-end">
                                     <Button
-                                      variant="outline-warning"
-                                      className="me-1"
+                                      variant="outline-primary"
+                                      className="mx-auto mb-2"
                                     >
-                                      <MdModeEditOutline /> Editar
+                                      <AiOutlinePlus /> Agregar
                                     </Button>
-                                    <Button variant="outline-danger">
-                                      <BsTrashFill /> Cancelar
-                                    </Button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            ))}
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
                           </Table>
-                        </Accordion.Body>
-                      </Accordion.Item>
-                    )
-                  )}
+                          <Table>
+                            <thead>
+                              <tr>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th>Tipo</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {activities.map((activity) => activity.idAsesoriaFk.toString() === advisory.id ? (
+                                <tr>
+                                  <td>{activity.nombre}</td>
+                                  <td>{activity.estado}</td>
+                                  <td>{activity.tipo}</td>
+                                  <td>boton</td>
+                                </tr>
+                              ) : null)}
+                            </tbody>
+                          </Table>
+                        </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  ))}
                 </Accordion>
               </div>
             ) : (
