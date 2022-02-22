@@ -15,6 +15,7 @@ import { BsTrashFill } from "react-icons/bs";
 import { MdModeEditOutline } from "react-icons/md";
 
 const ActivityAdvisory = () => {
+  //#region no TOCAR
   const idUsuario = localStorage.getItem("idUsuario");
 
   const [state, setState] = useState(true);
@@ -28,7 +29,7 @@ const ActivityAdvisory = () => {
     }, 3000);
   };
 
-  const URL = "http://localhost:8080/api";
+  const URL_BASE = "http://localhost:8080/api";
   const OPTIONS_GET = {
     method: "GET",
     headers: {
@@ -37,11 +38,20 @@ const ActivityAdvisory = () => {
       Authorization: localStorage.getItem("token"),
     },
   };
+  const OPTIONS_DELETE = {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  };
+  //#endregion
 
-  //#region Obtener asesorias
+  //#region Obtener asesorias y actividades
   const getAllConsultanciesByProfessionalId = async () => {
     try {
-      const res = await fetch(`${URL}/advisory/${idUsuario}`, OPTIONS_GET);
+      const res = await fetch(`${URL_BASE}/advisory/${idUsuario}`, OPTIONS_GET);
       const data = await res.json();
       setConsultancies(data);
     } catch (error) {
@@ -51,36 +61,30 @@ const ActivityAdvisory = () => {
 
   const getAllActivities = async () => {
     try {
-      const res = await fetch(`${URL}/all-activities`, OPTIONS_GET);
+      const res = await fetch(`${URL_BASE}/all-activities`, OPTIONS_GET);
       const data = await res.json();
       setActivities(data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // Ordenar asesorias por nombre
-  const ordered = consultancies.sort((a, b) => {
-    if (a.nombre > b.nombre) {
-      return 1;
-    } else if (a.nombre < b.nombre) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
-
-  // Agrupar asesorias por nombre
-  const groupBy = ordered.reduce(
-    (a, b) => {
-      (a[b.nombre] = a[b.nombre] || []).push(b);
-      return a;
-    },
-    [{}]
-  );
-  // Obtener los nombres de las asesorias
-  const keys = Object.keys(groupBy);
   //#endregion
+
+  const cancelActivity = async (id) => {
+    try {
+      if (window.confirm("Esta seguro de cancelar la actividad")) {
+        const res = await fetch(
+          `${URL_BASE}/delete-activity/${id}`,
+          OPTIONS_DELETE
+        );
+        const data = await res.text();
+        alert(data);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     document.title = "Actividades";
@@ -125,6 +129,9 @@ const ActivityAdvisory = () => {
                                     <Button
                                       variant="outline-primary"
                                       className="mx-auto mb-2"
+                                      onClick={() =>
+                                        (window.location.href = `/user/advisory/activity/add/${advisory.id}`)
+                                      }
                                     >
                                       <AiOutlinePlus /> Agregar
                                     </Button>
@@ -143,14 +150,39 @@ const ActivityAdvisory = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {activities.map((activity) => activity.idAsesoriaFk.toString() === advisory.id ? (
-                                <tr>
-                                  <td>{activity.nombre}</td>
-                                  <td>{activity.estado}</td>
-                                  <td>{activity.tipo}</td>
-                                  <td>boton</td>
-                                </tr>
-                              ) : null)}
+                              {activities.map((activity) =>
+                                activity.idAsesoriaFk.toString() ===
+                                advisory.id ? (
+                                  <tr>
+                                    <td>{activity.nombre}</td>
+                                    <td>{activity.estado}</td>
+                                    <td>{activity.tipo}</td>
+                                    <td className="d-grid gap-2 d-md-flex justify-content-md-end">
+                                      {activity.estado ===
+                                      "Cancelada" ? null : (
+                                        <>
+                                          <Button
+                                            variant="outline-warning"
+                                            className="mr-1"
+                                          >
+                                            <MdModeEditOutline /> Editar
+                                          </Button>
+                                          <Button
+                                            variant="outline-danger"
+                                            onClick={() =>
+                                              cancelActivity(
+                                                activity.idActividad
+                                              )
+                                            }
+                                          >
+                                            <BsTrashFill /> Cancelar
+                                          </Button>
+                                        </>
+                                      )}
+                                    </td>
+                                  </tr>
+                                ) : null
+                              )}
                             </tbody>
                           </Table>
                         </div>

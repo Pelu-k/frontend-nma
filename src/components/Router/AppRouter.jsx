@@ -22,15 +22,15 @@ const AppRouter = () => {
   const protectedRoutes = {
     2: // Rutas protegidas profesional
     <>
-      <Route path="/user/profile" element={<User />} exact/>
-      <Route path="/user/advisory/create" element={<CreateAdvisory />} exact/>
-      <Route path="/user/advisory/update" element={<UpdateAdvisory />} exact/>
-      <Route path="/user/advisory/activity" element={<ActivityAdvisory />} exact/>
-      <Route path="/user/advisory/activity/add/:id" element={<AddActivityAdvisory />} exact/>
+      <Route path="user/profile" element={<User />} />
+      <Route path="user/advisory/create" element={<CreateAdvisory />} />
+      <Route path="user/advisory/update" element={<UpdateAdvisory />} />
+      <Route path="user/advisory/activity" element={<ActivityAdvisory />} />
+      <Route path="user/advisory/activity/add/:id" element={<AddActivityAdvisory />} />
     </>,
     3: 
     <>
-      <Route path="/user/profile" element={<User />} exact/>
+      <Route path="/user/profile" element={<User />} />
     </>
   }
 
@@ -38,12 +38,12 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         {/* Rutas publicas */}
-        <Route path="/" element={<Home />} exact />
-        <Route path="/about-us" element={<AboutUs />} exact />
+        <Route exact path="/" element={<Home />} />
+        <Route path="about-us" element={<AboutUs />}  />
         {
           token 
             ? protectedRoutes[rol] //rutas protegidas
-            : <Route path="/login" element={<Login />} exact /> //ruta publica
+            : <Route path="login" element={<Login />}  /> //ruta publica
         }
         <Route path="*" element={<Error404 />} />
       </Routes>
