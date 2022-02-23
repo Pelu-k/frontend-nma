@@ -15,7 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState();
 
   // const url = "http://localhost:8080/api/login";
-  const url = "18.117.10.207:8080/api/login";
+  const url = "http://3.137.178.227:8080/api/login";
   const options = {
     method: "POST",
     headers: {
