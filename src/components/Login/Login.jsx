@@ -46,7 +46,7 @@ const Login = () => {
       localStorage.setItem("rol", data.rol);
       localStorage.setItem("idUsuario", data.idUsuario);
       localStorage.setItem("nombre", data.nombre);
-      window.location.href = "/";
+      window.location.href = "/user/profile";
     } catch (error) {
       alert(error);
     }
