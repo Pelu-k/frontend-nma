@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
-import { BiLogIn, BiHome } from 'react-icons/bi'
-import {HiOutlineOfficeBuilding} from 'react-icons/hi'
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { BiLogIn, BiHome } from "react-icons/bi";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 const NavBar = () => {
   const [token, setToken] = useState(null);
-  const [nombre, setNombre] = useState('Jaimico')
+  const [nombre, setNombre] = useState("Jaimico");
 
   const logout = () => {
     localStorage.clear();
-    window.location.reload();
+    window.location.href = "/";
   };
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
-    if(localStorage.getItem('nombre')) {
-      setNombre(localStorage.getItem('nombre'))
+    if (localStorage.getItem("nombre")) {
+      setNombre(localStorage.getItem("nombre"));
     }
   }, []);
 
@@ -33,14 +28,24 @@ const NavBar = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="/" style={{ color: 'white'}}><BiHome /> Inicio</Nav.Link>
-                <Nav.Link href="/about-us" style={{ color: 'white'}}><HiOutlineOfficeBuilding /> Quienes somos</Nav.Link>
+                <Nav.Link href="/" style={{ color: "white" }}>
+                  <BiHome /> Inicio
+                </Nav.Link>
+                <Nav.Link href="/about-us" style={{ color: "white" }}>
+                  <HiOutlineOfficeBuilding /> Quienes somos
+                </Nav.Link>
               </Nav>
             </Nav>
             <Nav>
               {token ? (
-                <NavDropdown title={nombre} id="collasible-nav-dropdown" style={{ color: 'white' }}>
-                  <NavDropdown.Item href="/user/profile">Perfil</NavDropdown.Item>
+                <NavDropdown
+                  title={nombre}
+                  id="collasible-nav-dropdown"
+                  style={{ color: "white" }}
+                >
+                  <NavDropdown.Item href="/user/profile">
+                    Perfil
+                  </NavDropdown.Item>
                   <NavDropdown.Item href="#!">Dashboard</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#!" onClick={logout}>
@@ -48,8 +53,8 @@ const NavBar = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link href="login" style={{ color: 'white' }}>
-                  <BiLogIn/> Login
+                <Nav.Link href="login" style={{ color: "white" }}>
+                  <BiLogIn /> Login
                 </Nav.Link>
               )}
             </Nav>
