@@ -164,6 +164,7 @@ const ActivityAdvisory = () => {
                                           <Button
                                             variant="outline-warning"
                                             className="mr-1"
+                                            onClick={() => window.location.href = `user/advisory/activity/edit/${activity.idActividad}`}
                                           >
                                             <MdModeEditOutline /> Editar
                                           </Button>
