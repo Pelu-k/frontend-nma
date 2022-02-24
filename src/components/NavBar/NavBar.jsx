@@ -4,7 +4,7 @@ import { BiLogIn, BiHome } from "react-icons/bi";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 const NavBar = () => {
-  const [token, setToken] = useState(null);
+  const [token, setToken]   = useState(null);
   const [nombre, setNombre] = useState("Jaimico");
 
   const logout = () => {
@@ -43,9 +43,7 @@ const NavBar = () => {
                   id="collasible-nav-dropdown"
                   style={{ color: "white" }}
                 >
-                  <NavDropdown.Item href="/user/profile">
-                    Perfil
-                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/user/profile">Perfil</NavDropdown.Item>
                   <NavDropdown.Item href="#!">Dashboard</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#!" onClick={logout}>

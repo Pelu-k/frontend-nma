@@ -13,15 +13,15 @@ import Loading from "../../../Utils/Loading/Loading";
 import DashboardProfessional from "../DashboardProfessional";
 
 const CreateAdvisory = () => {
-  const [state, setState] = useState(true);
+  const [state, setState]               = useState(true);
   const [nameAdvisory, setNameAdvisory] = useState("");
-  const [checklist, setChecklist] = useState("");
-  const [createDate, setCreateDate] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [price, setPrice] = useState(0);
-  const [idClient, setIdClient] = useState(0);
-  const [customers, setCustomers] = useState([]);
+  const [checklist, setChecklist]       = useState("");
+  const [createDate, setCreateDate]     = useState("");
+  const [deadline, setDeadline]         = useState("");
+  const [endDate, setEndDate]           = useState("");
+  const [price, setPrice]               = useState(0);
+  const [idClient, setIdClient]         = useState(0);
+  const [customers, setCustomers]       = useState([]);
 
   const URL_BASE = "http://localhost:8080/api";
   const OPTIONS_POST = {
@@ -60,7 +60,7 @@ const CreateAdvisory = () => {
 
   const getAllCustomers = async () => {
     try {
-      const res = await fetch(`${URL_BASE}/customers`, OPTIONS_GET);
+      const res  = await fetch(`${URL_BASE}/customers`, OPTIONS_GET);
       const data = await res.json();
       setCustomers(data);
     } catch (error) {
@@ -72,8 +72,9 @@ const CreateAdvisory = () => {
     e.preventDefault();
     // validar campos
     try {
-      await fetch(`${URL_BASE}/create-advisory`, OPTIONS_POST);
-      alert("Asesoria creada.");
+      const res  = await fetch(`${URL_BASE}/create-advisory`, OPTIONS_POST);
+      const data = await res.text();
+      alert(data)
       // Limpiar campos
       setNameAdvisory("");
       setChecklist("");

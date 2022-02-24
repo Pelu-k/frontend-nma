@@ -4,7 +4,7 @@ import Loading from "../../../Utils/Loading/Loading";
 import DashboardProfessional from "../DashboardProfessional";
 
 const UpdateAdvisory = () => {
-  const [state, setState] = useState(true);
+  const [state, setState]                 = useState(true);
   const [consultancies, setConsultancies] = useState([]);
 
   const URL_BASE = "http://localhost:8080/api";
@@ -19,7 +19,7 @@ const UpdateAdvisory = () => {
 
   const getAllAdvisory = async (idUsuario) => {
     try {
-      const res = await fetch(`${URL_BASE}/advisory/${idUsuario}`, OPTIONS_GET);
+      const res  = await fetch(`${URL_BASE}/advisory/${idUsuario}`, OPTIONS_GET);
       const data = await res.json();
       setConsultancies(data);
     } catch (error) {
@@ -29,7 +29,7 @@ const UpdateAdvisory = () => {
 
   const deleteAdvisory = async (idAsesoria) => {
     try {
-      await fetch(`${URL_BASE}/update-advisory`, {
+      const res  = await fetch(`${URL_BASE}/update-advisory`, {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -41,7 +41,8 @@ const UpdateAdvisory = () => {
           estado: "Cancelada",
         }),
       });
-      alert("Asesoria cancelada");
+      const data = await res.text()
+      alert(data);
       window.location.reload();
     } catch (error) {
       alert(error);

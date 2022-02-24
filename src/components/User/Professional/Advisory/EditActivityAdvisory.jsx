@@ -16,13 +16,13 @@ import { IoIosSend } from "react-icons/io";
 const EditActivityAdvisory = () => {
   const { id } = useParams();
 
-  const [state, setState] = useState(true);
-  const [activity, setActivity] = useState([]);
-  const [price, setPrice] = useState("");
-  const [type, setType] = useState("");
-  const [createDate, setCreateDate] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [state, setState]               = useState(true);
+  const [activity, setActivity]         = useState([]);
+  const [price, setPrice]               = useState("");
+  const [type, setType]                 = useState("");
+  const [createDate, setCreateDate]     = useState("");
+  const [deadline, setDeadline]         = useState("");
+  const [endDate, setEndDate]           = useState("");
   const [descActivity, setDescActivity] = useState("");
 
   const URL_BASE = "http://localhost:8080/api";
@@ -60,7 +60,7 @@ const EditActivityAdvisory = () => {
 
   const getActivityById = async () => {
     try {
-      const res = await fetch(`${URL_BASE}/activity/${id}`, OPTIONS_GET);
+      const res  = await fetch(`${URL_BASE}/activity/${id}`, OPTIONS_GET);
       const data = await res.json();
       setActivity(data);
     } catch (error) {
@@ -75,7 +75,7 @@ const EditActivityAdvisory = () => {
       )
     ) {
       try {
-        const res = await fetch(`${URL_BASE}/update-activity`, OPTIONS_PUT);
+        const res  = await fetch(`${URL_BASE}/update-activity`, OPTIONS_PUT);
         const data = await res.text();
         alert(data);
         if(res.status === 200) {

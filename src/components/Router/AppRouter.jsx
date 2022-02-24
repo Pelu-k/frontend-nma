@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState }   from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AboutUs from "../AboutUs/AboutUs";
-import Error404 from "../Error404/Error404";
-import Home from "../Home/Home";
-import Login from "../Login/Login";
-import ActivityAdvisory from "../User/Professional/Advisory/ActivityAdvisory";
-import AddActivityAdvisory from "../User/Professional/Advisory/AddActivityAdvisory";
-import CreateAdvisory from "../User/Professional/Advisory/CreateAdvisory";
-import UpdateAdvisory from "../User/Professional/Advisory/UpdateAdvisory";
-import EditActivityAdvisory from "../User/Professional/Advisory/EditActivityAdvisory"
-import User from "../User/User";
-import CreateTraining from "../User/Professional/Training/CreateTraining";
+import AboutUs                          from "../AboutUs/AboutUs";
+import Error404                         from "../Error404/Error404";
+import Home                             from "../Home/Home";
+import Login                            from "../Login/Login";
+import User                             from "../User/User";
+import ActivityAdvisory                 from "../User/Professional/Advisory/ActivityAdvisory";
+import AddActivityAdvisory              from "../User/Professional/Advisory/AddActivityAdvisory";
+import CreateAdvisory                   from "../User/Professional/Advisory/CreateAdvisory";
+import UpdateAdvisory                   from "../User/Professional/Advisory/UpdateAdvisory";
+import EditActivityAdvisory             from "../User/Professional/Advisory/EditActivityAdvisory"
+import CreateTraining                   from "../User/Professional/Training/CreateTraining";
+import UpdateTraining                   from "../User/Professional/Training/UpdateTraining";
+import ActivityTraining                 from "../User/Professional/Training/ActivityTraining";
+import RequestTraining                  from "../User/Client/Training/RequestTraining";
+import ReportAccident                   from "../User/Client/Accident/ReportAccident";
+import RequestAdvisory                  from "../User/Client/Advisory/RequestAdvisory";
 
 const AppRouter = () => {
   const [token, setToken] = useState(null);
-  const [rol, setRol] = useState(null)
+  const [rol, setRol]     = useState(null)
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
@@ -24,17 +29,22 @@ const AppRouter = () => {
   const protectedRoutes = {
     2: // Rutas protegidas profesional
     <>
-      <Route exact path="/user/profile" element={<User />} />
-      <Route exact path="/user/advisory/create" element={<CreateAdvisory />} />
-      <Route exact path="/user/advisory/update" element={<UpdateAdvisory />} />
-      <Route exact path="/user/advisory/activity" element={<ActivityAdvisory />} />
-      <Route exact path="/user/advisory/activity/add/:id" element={<AddActivityAdvisory />} />
+      <Route exact path="/user/profile"                    element={<User />} />
+      <Route exact path="/user/advisory/create"            element={<CreateAdvisory />} />
+      <Route exact path="/user/advisory/update"            element={<UpdateAdvisory />} />
+      <Route exact path="/user/advisory/activity"          element={<ActivityAdvisory />} />
+      <Route exact path="/user/advisory/activity/add/:id"  element={<AddActivityAdvisory />} />
       <Route exact path="/user/advisory/activity/edit/:id" element={<EditActivityAdvisory />} />
-      <Route exact path="/user/training/create" element={<CreateTraining />} />
+      <Route exact path="/user/training/create"            element={<CreateTraining />} />
+      <Route exact path="/user/training/update"            element={<UpdateTraining />} />
+      <Route exact path="/user/training/activity"          element={<ActivityTraining />} />
     </>,
     3: 
     <>
-      <Route exact path="/user/profile" element={<User />} />
+      <Route exact path="/user/profile"                    element={<User />} />
+      <Route exact path="/user/advisory/request"           element={<RequestAdvisory />} />
+      <Route exact path="/user/training/request"           element={<RequestTraining />} />
+      <Route exact path="/user/accident/report"            element={<ReportAccident />} />
     </>
   }
 
@@ -42,14 +52,14 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         {/* Rutas publicas */}
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/about-us" element={<AboutUs />}  />
+        <Route exact path="/"            element={<Home />} />
+        <Route exact path="/about-us"    element={<AboutUs />}  />
         {
           token 
             ? protectedRoutes[rol] //rutas protegidas
             : <Route exact path="/login" element={<Login />}  /> //ruta publica
         }
-        <Route path="*" element={<Error404 />} />
+        <Route path="*"                  element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );

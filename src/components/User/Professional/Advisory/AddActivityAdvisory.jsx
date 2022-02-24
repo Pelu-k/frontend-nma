@@ -16,12 +16,12 @@ const AddActivityAdvisory = () => {
   //#region NO TOCAR
   const { id } = useParams();
 
-  const [activity, setActivity] = useState("");
-  const [price, setPrice] = useState("");
-  const [type, setType] = useState("");
-  const [createDate, setCreateDate] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [activity, setActivity]         = useState("");
+  const [price, setPrice]               = useState("");
+  const [type, setType]                 = useState("");
+  const [createDate, setCreateDate]     = useState("");
+  const [deadline, setDeadline]         = useState("");
+  const [endDate, setEndDate]           = useState("");
   const [descActivity, setDescActivity] = useState("");
 
   const URL_BASE = "http://localhost:8080/api";
@@ -48,7 +48,7 @@ const AddActivityAdvisory = () => {
   const createActivity = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${URL_BASE}/register-activity`, OPTIONS_POST);
+      const res  = await fetch(`${URL_BASE}/register-activity`, OPTIONS_POST);
       const data = await res.text();
       alert(data)
       window.location.href = '/user/advisory/activity'

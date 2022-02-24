@@ -18,9 +18,9 @@ const ActivityAdvisory = () => {
   //#region no TOCAR
   const idUsuario = localStorage.getItem("idUsuario");
 
-  const [state, setState] = useState(true);
+  const [state, setState]                 = useState(true);
   const [consultancies, setConsultancies] = useState([]);
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities]       = useState([]);
 
   const changeState = () => {
     setState(true);
@@ -51,7 +51,7 @@ const ActivityAdvisory = () => {
   //#region Obtener asesorias y actividades
   const getAllConsultanciesByProfessionalId = async () => {
     try {
-      const res = await fetch(`${URL_BASE}/advisory/${idUsuario}`, OPTIONS_GET);
+      const res  = await fetch(`${URL_BASE}/advisory/${idUsuario}`, OPTIONS_GET);
       const data = await res.json();
       setConsultancies(data);
     } catch (error) {
@@ -61,7 +61,7 @@ const ActivityAdvisory = () => {
 
   const getAllActivities = async () => {
     try {
-      const res = await fetch(`${URL_BASE}/all-activities`, OPTIONS_GET);
+      const res  = await fetch(`${URL_BASE}/all-activities`, OPTIONS_GET);
       const data = await res.json();
       setActivities(data);
     } catch (error) {

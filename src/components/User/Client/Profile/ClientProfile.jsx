@@ -8,7 +8,7 @@ const ClientProfile = () => {
       <Container>
         <Row>
           <Col sm={3}>
-            <DashboardClient/>
+            <DashboardClient />
           </Col>
           <Col sm={9}>
             <h2 className="text-center">Perfil del cliente</h2>
