@@ -8,6 +8,7 @@ import ActivityAdvisory from "../User/Professional/Advisory/ActivityAdvisory";
 import AddActivityAdvisory from "../User/Professional/Advisory/AddActivityAdvisory";
 import CreateAdvisory from "../User/Professional/Advisory/CreateAdvisory";
 import UpdateAdvisory from "../User/Professional/Advisory/UpdateAdvisory";
+import EditActivityAdvisory from "../User/Professional/Advisory/EditActivityAdvisory"
 import User from "../User/User";
 
 const AppRouter = () => {
@@ -22,15 +23,16 @@ const AppRouter = () => {
   const protectedRoutes = {
     2: // Rutas protegidas profesional
     <>
-      <Route path="user/profile" element={<User />} />
-      <Route path="user/advisory/create" element={<CreateAdvisory />} />
-      <Route path="user/advisory/update" element={<UpdateAdvisory />} />
-      <Route path="user/advisory/activity" element={<ActivityAdvisory />} />
-      <Route path="user/advisory/activity/add/:id" element={<AddActivityAdvisory />} />
+      <Route exact path="/user/profile" element={<User />} />
+      <Route exact path="/user/advisory/create" element={<CreateAdvisory />} />
+      <Route exact path="/user/advisory/update" element={<UpdateAdvisory />} />
+      <Route exact path="/user/advisory/activity" element={<ActivityAdvisory />} />
+      <Route exact path="/user/advisory/activity/add/:id" element={<AddActivityAdvisory />} />
+      <Route exact path="/user/advisory/activity/edit/:id" element={<EditActivityAdvisory />} />
     </>,
     3: 
     <>
-      <Route path="/user/profile" element={<User />} />
+      <Route exact path="/user/profile" element={<User />} />
     </>
   }
 
@@ -39,11 +41,11 @@ const AppRouter = () => {
       <Routes>
         {/* Rutas publicas */}
         <Route exact path="/" element={<Home />} />
-        <Route path="about-us" element={<AboutUs />}  />
+        <Route exact path="/about-us" element={<AboutUs />}  />
         {
           token 
             ? protectedRoutes[rol] //rutas protegidas
-            : <Route path="login" element={<Login />}  /> //ruta publica
+            : <Route exact path="/login" element={<Login />}  /> //ruta publica
         }
         <Route path="*" element={<Error404 />} />
       </Routes>
