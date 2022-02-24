@@ -10,6 +10,7 @@ import CreateAdvisory from "../User/Professional/Advisory/CreateAdvisory";
 import UpdateAdvisory from "../User/Professional/Advisory/UpdateAdvisory";
 import EditActivityAdvisory from "../User/Professional/Advisory/EditActivityAdvisory"
 import User from "../User/User";
+import CreateTraining from "../User/Professional/Training/CreateTraining";
 
 const AppRouter = () => {
   const [token, setToken] = useState(null);
@@ -29,6 +30,7 @@ const AppRouter = () => {
       <Route exact path="/user/advisory/activity" element={<ActivityAdvisory />} />
       <Route exact path="/user/advisory/activity/add/:id" element={<AddActivityAdvisory />} />
       <Route exact path="/user/advisory/activity/edit/:id" element={<EditActivityAdvisory />} />
+      <Route exact path="/user/training/create" element={<CreateTraining />} />
     </>,
     3: 
     <>
