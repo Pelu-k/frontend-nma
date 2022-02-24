@@ -43,11 +43,10 @@ const EditActivityAdvisory = () => {
     },
     body: JSON.stringify({
       idActividad: id,
+      nombre: activity.nombre,
       valor: price,
-      tipo: type,
-      fechaCreacion: createDate,
+      estado: activity.estado,
       fechaLimite: deadline,
-      fechaTermino: endDate,
       descActividad: descActivity,
     }),
   };
@@ -79,16 +78,28 @@ const EditActivityAdvisory = () => {
         const res = await fetch(`${URL_BASE}/update-activity`, OPTIONS_PUT);
         const data = await res.text();
         alert(data);
-        window.location.href = "/user/";
+        if(res.status === 200) {
+          window.location.href = "/user/advisory/activity";
+        }
       } catch (error) {
         console.log(error);
       }
     }
   };
 
+  const setData = () => {
+    setPrice(activity.valor)
+    setType(activity.tipo)
+    setCreateDate(activity.fechaCreacion)
+    setDeadline(activity.fechaLimite)
+    setEndDate(activity.fechaTermino)
+    setDescActivity(activity.descActividad)
+  }
+
   useEffect(() => {
     document.title = "Editar actividad";
     getActivityById();
+    setData();
     changeState();
   }, []);
 
@@ -119,7 +130,7 @@ const EditActivityAdvisory = () => {
                     <FloatingLabel label="Valor" controlId="price">
                       <Form.Control
                         type="text"
-                        value={activity.valor}
+                        value={price}
                         onChange={(e) => setPrice(e.target.value)}
                       />
                     </FloatingLabel>
@@ -127,8 +138,8 @@ const EditActivityAdvisory = () => {
                   <Form.Group className="mb-3">
                     <FloatingLabel label="Tipo" controlId="type">
                       <Form.Select
-                        value={activity.tipo}
-                        onChange={(e) => setType(e.target.value)}
+                        value={type}
+                        readOnly
                       >
                         <option>Seleccionar tipo</option>
                         <option>normal</option>
@@ -143,10 +154,8 @@ const EditActivityAdvisory = () => {
                     >
                       <Form.Control
                         type="date"
-                        value={activity.fechaCreacion}
-                        onChange={(e) =>
-                          setCreateDate(new Date(e.target.value))
-                        }
+                        value={createDate}
+                        readOnly
                       />
                     </FloatingLabel>
                   </Form.Group>
@@ -154,7 +163,7 @@ const EditActivityAdvisory = () => {
                     <FloatingLabel label="Fecha limite" controlId="deadline">
                       <Form.Control
                         type="date"
-                        value={activity.fechaLimite}
+                        value={deadline}
                         onChange={(e) => setDeadline(new Date(e.target.value))}
                       />
                     </FloatingLabel>
@@ -163,8 +172,8 @@ const EditActivityAdvisory = () => {
                     <FloatingLabel label="Fecha termino" controlId="endDate">
                       <Form.Control
                         type="date"
-                        value={activity.fechaTermino}
-                        onChange={(e) => setEndDate(new Date(e.target.value))}
+                        value={endDate}
+                        readOnly
                       />
                     </FloatingLabel>
                   </Form.Group>
@@ -172,14 +181,14 @@ const EditActivityAdvisory = () => {
                     <FloatingLabel label="Descripcion" controlId="description">
                       <Form.Control
                         type="textarea"
-                        value={activity.descActividad}
+                        value={descActivity}
                         onChange={(e) => setDescActivity(e.target.value)}
                       />
                     </FloatingLabel>
                   </Form.Group>
                   <div className="d-grid gap-2">
                     <Button
-                      variant="outline-primary"
+                      variant="warning"
                       size="lg"
                       onClick={updateActivity}
                     >
