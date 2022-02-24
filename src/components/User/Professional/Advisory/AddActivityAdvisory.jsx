@@ -71,10 +71,10 @@ const AddActivityAdvisory = () => {
                 <Form.Group className="mb-3">
                   <FloatingLabel label="Actividad" controlId="activity">
                     <Form.Select onChange={(e) => setActivity(e.target.value)}>
-                      <option defaultChecked>Seleccionar actividad</option>
-                      <option>CAPACITACION</option>
-                      <option>GESTION</option>
-                      <option>VISITA</option>
+                      <option defaultChecked key='0'>Seleccionar actividad</option>
+                      <option key='1'>CAPACITACION</option>
+                      <option key='2'>GESTION</option>
+                      <option key='3'>VISITA</option>
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
@@ -89,9 +89,9 @@ const AddActivityAdvisory = () => {
                 <Form.Group className="mb-3">
                   <FloatingLabel label="Tipo" controlId="type">
                     <Form.Select onChange={(e) => setType(e.target.value)}>
-                      <option>Seleccionar tipo</option>
-                      <option>normal</option>
-                      <option>especial</option>
+                      <option defaultChecked key='1'>Seleccionar tipo</option>
+                      <option key='2'>normal</option>
+                      <option key='3'>especial</option>
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
