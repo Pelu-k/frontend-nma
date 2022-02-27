@@ -1,6 +1,5 @@
 import React, { useEffect, useState }   from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AboutUs                          from "../AboutUs/AboutUs";
 import Error404                         from "../Error404/Error404";
 import Home                             from "../Home/Home";
 import Login                            from "../Login/Login";
@@ -53,7 +52,6 @@ const AppRouter = () => {
       <Routes>
         {/* Rutas publicas */}
         <Route exact path="/"            element={<Home />} />
-        <Route exact path="/about-us"    element={<AboutUs />}  />
         {
           token 
             ? protectedRoutes[rol] //rutas protegidas

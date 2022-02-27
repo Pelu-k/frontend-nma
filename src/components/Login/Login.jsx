@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -50,6 +50,10 @@ const Login = () => {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    document.title = 'Login'
+  })
 
   return (
     <div>

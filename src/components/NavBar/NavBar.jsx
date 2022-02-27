@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { BiLogIn, BiHome } from "react-icons/bi";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import { AiOutlineMail } from "react-icons/ai";
 
 const NavBar = () => {
   const [token, setToken]   = useState(null);
@@ -31,8 +32,11 @@ const NavBar = () => {
                 <Nav.Link href="/" style={{ color: "white", verticalAlign:'middle' }}>
                   <BiHome /> Inicio
                 </Nav.Link>
-                <Nav.Link href="/about-us" style={{ color: "white", verticalAlign:'middle' }}>
+                <Nav.Link href="/#sobre-nosotros" style={{ color: "white", verticalAlign:'middle' }}>
                   <HiOutlineOfficeBuilding /> Quienes somos
+                </Nav.Link>
+                <Nav.Link href="/#contacto" style={{ color: "white", verticalAlign:'middle' }}>
+                  <AiOutlineMail /> Contacto
                 </Nav.Link>
               </Nav>
             </Nav>

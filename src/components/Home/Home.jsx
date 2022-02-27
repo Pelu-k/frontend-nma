@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import "./css/home.css";
 import { ImWhatsapp, ImFacebook2, ImTwitter } from "react-icons/im";
 import { AiOutlineMail } from "react-icons/ai";
 
 const Home = () => {
+  useEffect(() => {
+    document.title = 'Inicio'
+  })
   return (
     <div>
       <Row
@@ -19,6 +22,7 @@ const Home = () => {
           <h1
             className="py-5 ps-5"
             style={{ color: "white", fontSize: "250%" }}
+            id="home"
           >
             <strong>Bienvenido a NMA</strong>
           </h1>
@@ -76,7 +80,7 @@ const Home = () => {
         }}
       >
         <Col>
-          <h2 className="py-5 ps-5" style={{ color: "white" }}>
+          <h2 className="py-5 ps-5" style={{ color: "white" }} id="sobre-nosotros">
             Sobre nosotros
           </h2>
         </Col>
@@ -128,7 +132,7 @@ const Home = () => {
         className="parallax-1"
         style={{ paddingTop: "100px", paddingBottom: "100px" }}
       >
-        <h3 className="text-center pb-5" style={{ color: "white" }}>
+        <h3 className="text-center pb-5" style={{ color: "white" }} id="contacto">
           Contacto
         </h3>
         <Col
@@ -146,7 +150,7 @@ const Home = () => {
             size={25}
             color="white"
             style={{ verticalAling: "middle" }}
-          />{" "}
+          />
           +56 9 3423 9845
         </Col>
         <Col
