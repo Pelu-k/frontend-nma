@@ -46,7 +46,14 @@ const ActivityAdvisory = () => {
       Authorization: localStorage.getItem("token"),
     },
   };
-  const OPTIONS_PUT = {};
+  const OPTIONS_PUT = {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  };
   //#endregion
 
   //#region Obtener asesorias y actividades
