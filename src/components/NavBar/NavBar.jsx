@@ -28,10 +28,10 @@ const NavBar = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="/" style={{ color: "white" }}>
+                <Nav.Link href="/" style={{ color: "white", verticalAlign:'middle' }}>
                   <BiHome /> Inicio
                 </Nav.Link>
-                <Nav.Link href="/about-us" style={{ color: "white" }}>
+                <Nav.Link href="/about-us" style={{ color: "white", verticalAlign:'middle' }}>
                   <HiOutlineOfficeBuilding /> Quienes somos
                 </Nav.Link>
               </Nav>
@@ -51,7 +51,7 @@ const NavBar = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link href="login" style={{ color: "white" }}>
+                <Nav.Link href="login" style={{ color: "white", verticalAlign:'middle'}}>
                   <BiLogIn /> Login
                 </Nav.Link>
               )}
