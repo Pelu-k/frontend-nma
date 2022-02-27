@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import Loading from "../../../Utils/Loading/Loading";
 import DashboardProfessional from "../DashboardProfessional";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineCheck } from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { MdModeEditOutline } from "react-icons/md";
 
@@ -18,9 +18,9 @@ const ActivityAdvisory = () => {
   //#region no TOCAR
   const idUsuario = localStorage.getItem("idUsuario");
 
-  const [state, setState]                 = useState(true);
+  const [state, setState] = useState(true);
   const [consultancies, setConsultancies] = useState([]);
-  const [activities, setActivities]       = useState([]);
+  const [activities, setActivities] = useState([]);
 
   const changeState = () => {
     setState(true);
@@ -46,12 +46,13 @@ const ActivityAdvisory = () => {
       Authorization: localStorage.getItem("token"),
     },
   };
+  const OPTIONS_PUT = {};
   //#endregion
 
   //#region Obtener asesorias y actividades
   const getAllConsultanciesByProfessionalId = async () => {
     try {
-      const res  = await fetch(`${URL_BASE}/advisory/${idUsuario}`, OPTIONS_GET);
+      const res = await fetch(`${URL_BASE}/advisory/${idUsuario}`, OPTIONS_GET);
       const data = await res.json();
       setConsultancies(data);
     } catch (error) {
@@ -61,7 +62,7 @@ const ActivityAdvisory = () => {
 
   const getAllActivities = async () => {
     try {
-      const res  = await fetch(`${URL_BASE}/all-activities`, OPTIONS_GET);
+      const res = await fetch(`${URL_BASE}/all-activities`, OPTIONS_GET);
       const data = await res.json();
       setActivities(data);
     } catch (error) {
@@ -80,6 +81,21 @@ const ActivityAdvisory = () => {
         const data = await res.text();
         alert(data);
         window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const endActivity = async (id) => {
+    try {
+      const res = await fetch(`${URL_BASE}/end-activity/${id}`, OPTIONS_PUT);
+      const data = await res.text();
+      if (res.status === 200) {
+        alert(data);
+        window.location.reload();
+      } else {
+        alert(data);
       }
     } catch (error) {
       console.log(error);
@@ -158,13 +174,24 @@ const ActivityAdvisory = () => {
                                     <td>{activity.estado}</td>
                                     <td>{activity.tipo}</td>
                                     <td className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                      {activity.estado ===
-                                      "Cancelada" ? null : (
+                                      {activity.estado === "Cancelada"  ? null : 
+                                       activity.estado === "Finalizada" ? null : (
                                         <>
+                                          <Button
+                                            variant="outline-success"
+                                            className="mr-1"
+                                            onClick={() =>
+                                              endActivity(activity.idActividad)
+                                            }
+                                          >
+                                            <AiOutlineCheck /> Finalizar
+                                          </Button>
                                           <Button
                                             variant="outline-warning"
                                             className="mr-1"
-                                            onClick={() => window.location.href = `user/advisory/activity/edit/${activity.idActividad}`}
+                                            onClick={() =>
+                                              (window.location.href = `user/advisory/activity/edit/${activity.idActividad}`)
+                                            }
                                           >
                                             <MdModeEditOutline /> Editar
                                           </Button>
