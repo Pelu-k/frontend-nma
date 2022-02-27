@@ -10,9 +10,9 @@ const Home = () => {
       <Row
         className="parallax-1"
         style={{
-          paddingTop: "100px",
+          paddingTop: "150px",
           paddingLeft: "50px",
-          paddingBottom: "100px",
+          paddingBottom: "150px",
         }}
       >
         <Col>
