@@ -33,13 +33,14 @@ const CreateAdvisory = () => {
     },
     body: JSON.stringify({
       nombre: nameAdvisory,
-      descChecklist: checklist,
+      //descChecklist: checklist,
       fechaCreacion: createDate,
       fechaLimite: deadline,
       fechaTermino: endDate,
       valor: price,
       idClienteFk: idClient,
       idProfesionalFk: localStorage.getItem("idUsuario"),
+      categoria: "ASESORIA"
     }),
   };
   const OPTIONS_GET = {
