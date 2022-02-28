@@ -15,7 +15,7 @@ import { IoIosSend } from "react-icons/io";
 const CreateTraining = () => {
   const [state, setState]               = useState(true);
   const [customers, setCustomers]       = useState([]);
-  const [nameAdvisory, setNameAdvisory] = useState("");
+  const [nameTraining, setNameTraining] = useState("");
   const [checklist, setChecklist]       = useState("");
   const [createDate, setCreateDate]     = useState("");
   const [deadline, setDeadline]         = useState("");
@@ -40,14 +40,15 @@ const CreateTraining = () => {
       Authorization: localStorage.getItem("token"),
     },
     body: JSON.stringify({
-      nombre: nameAdvisory,
-      descChecklist: checklist,
+      nombre: nameTraining,
+      //descChecklist: checklist,
       fechaCreacion: createDate,
       fechaLimite: deadline,
       fechaTermino: endDate,
       valor: price,
       idClienteFk: idClient,
       idProfesionalFk: localStorage.getItem("idUsuario"),
+      categoria: "CAPACITACION"
     }),
   };
 
@@ -71,7 +72,7 @@ const CreateTraining = () => {
   const createTrainig = async (e) => {
     e.preventDefault();
     try {
-      const res  = await fetch(`${URL_BASE}/create-training`, OPTIONS_POST);
+      const res  = await fetch(`${URL_BASE}/create-advisory`, OPTIONS_POST);
       const data = await res.text();
       alert(data);
     } catch (error) {
@@ -102,11 +103,11 @@ const CreateTraining = () => {
                   <Form.Group className="mb-3">
                     <FloatingLabel
                       label="Nombre capacitacion"
-                      controlId="nameAdvisory"
+                      controlId="nameTraining"
                     >
                       <Form.Control
                         type="text"
-                        // onChange={}
+                        onChange={(e) => setNameTraining(e.target.value)}
                       />
                     </FloatingLabel>
                   </Form.Group>
@@ -114,7 +115,7 @@ const CreateTraining = () => {
                     {customers.length > 0 ? (
                       <FloatingLabel label="Cliente" controlId="idClient">
                         <Form.Select
-                        // onChange={}
+                        onChange={(e) => setIdClient(e.target.value)}
                         >
                           <option disable>Seleccionar cliente</option>
                           {customers.map((client) => (
@@ -137,7 +138,7 @@ const CreateTraining = () => {
                     >
                       <Form.Control
                         type="date"
-                        // onChange={}
+                        onChange={(e) => setCreateDate(e.target.value)}
                       />
                     </FloatingLabel>
                   </Form.Group>
@@ -145,7 +146,7 @@ const CreateTraining = () => {
                     <FloatingLabel label="Fecha limite" controlId="deadline">
                       <Form.Control
                         type="date"
-                        // onChange={}
+                        onChange={(e) => setDeadline(e.target.value)}
                       />
                     </FloatingLabel>
                   </Form.Group>
@@ -153,7 +154,7 @@ const CreateTraining = () => {
                     <FloatingLabel label="Fecha termino" controlId="endDate">
                       <Form.Control
                         type="date"
-                        // onChange={}
+                        onChange={(e) => setEndDate(e.target.value)}
                       />
                     </FloatingLabel>
                   </Form.Group>
@@ -161,7 +162,7 @@ const CreateTraining = () => {
                     <FloatingLabel label="Valor" controlId="price">
                       <Form.Control
                         type="text"
-                        // onChange={}
+                        onChange={(e) => setPrice(e.target.value)}
                       />
                     </FloatingLabel>
                   </Form.Group>
