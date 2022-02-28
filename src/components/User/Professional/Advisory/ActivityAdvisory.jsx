@@ -22,13 +22,6 @@ const ActivityAdvisory = () => {
   const [consultancies, setConsultancies] = useState([]);
   const [activities, setActivities] = useState([]);
 
-  const changeState = () => {
-    setState(true);
-    setTimeout(() => {
-      setState(false);
-    }, 3000);
-  };
-
   const URL_BASE = "http://localhost:8080/api";
   const OPTIONS_GET = {
     method: "GET",
@@ -109,6 +102,13 @@ const ActivityAdvisory = () => {
     }
   };
 
+  const changeState = () => {
+    setState(true);
+    setTimeout(() => {
+      setState(false);
+    }, 3000);
+  };
+
   useEffect(() => {
     document.title = "Actividades";
     getAllConsultanciesByProfessionalId();
@@ -181,8 +181,9 @@ const ActivityAdvisory = () => {
                                     <td>{activity.estado}</td>
                                     <td>{activity.tipo}</td>
                                     <td className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                      {activity.estado === "Cancelada"  ? null : 
-                                       activity.estado === "Finalizada" ? null : (
+                                      {activity.estado ===
+                                      "Cancelada" ? null : activity.estado ===
+                                        "Finalizada" ? null : (
                                         <>
                                           <Button
                                             variant="outline-success"
