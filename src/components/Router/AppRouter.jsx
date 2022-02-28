@@ -15,6 +15,8 @@ import ActivityTraining                 from "../User/Professional/Training/Acti
 import RequestTraining                  from "../User/Client/Training/RequestTraining";
 import ReportAccident                   from "../User/Client/Accident/ReportAccident";
 import RequestAdvisory                  from "../User/Client/Advisory/RequestAdvisory";
+import AddActivityTraining              from "../User/Professional/Training/AddActivityTraining";
+import EditActivityTraining             from "../User/Professional/Training/EditActivityTraining";
 
 const AppRouter = () => {
   const [token, setToken] = useState(null);
@@ -37,6 +39,8 @@ const AppRouter = () => {
       <Route exact path="/user/training/create"            element={<CreateTraining />} />
       <Route exact path="/user/training/update"            element={<UpdateTraining />} />
       <Route exact path="/user/training/activity"          element={<ActivityTraining />} />
+      <Route exact path="/user/training/activity/add/:id"  element={<AddActivityTraining />} />
+      <Route exact path="/user/training/activity/edit/:id" element={<EditActivityTraining />} />
     </>,
     3: 
     <>
