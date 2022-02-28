@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Alert,
   Button,
   Col,
   Container,
@@ -87,7 +86,7 @@ const EditActivityAdvisory = () => {
     }
   };
 
-  const setData = () => {
+  const setData = async () => {
     setPrice(activity.valor)
     setType(activity.tipo)
     setCreateDate(activity.fechaCreacion)
@@ -140,6 +139,7 @@ const EditActivityAdvisory = () => {
                       <Form.Select
                         value={type}
                         readOnly
+                        onChange={(e) => setType(e.target.value)}
                       >
                         <option>Seleccionar tipo</option>
                         <option>normal</option>
