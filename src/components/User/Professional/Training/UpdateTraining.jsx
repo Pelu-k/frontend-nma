@@ -19,7 +19,7 @@ const UpdateTraining = () => {
 
   const getAllTrainings = async (idUsuario) => {
     try {
-      const res  = await fetch(`${URL_BASE}/training/${idUsuario}`, OPTIONS_GET);
+      const res  = await fetch(`${URL_BASE}/trainings/${idUsuario}`, OPTIONS_GET);
       const data = await res.json();
       setTrainings(data);
     } catch (error) {
@@ -42,7 +42,7 @@ const UpdateTraining = () => {
         }),
       });
       const data = await res.text()
-      alert(data);
+      alert("Capacitacion cancelada");
       window.location.reload();
     } catch (error) {
       alert(error);

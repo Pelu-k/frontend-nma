@@ -54,7 +54,7 @@ const EditActivityAdvisory = () => {
     setState(true);
     setTimeout(() => {
       setState(false);
-    }, 3000);
+    }, 5000);
   };
 
   const getActivityById = async () => {
@@ -173,7 +173,7 @@ const EditActivityAdvisory = () => {
                       <Form.Control
                         type="date"
                         value={endDate}
-                        readOnly
+                        onChange={(e) => setEndDate(new Date(e.target.value))}
                       />
                     </FloatingLabel>
                   </Form.Group>

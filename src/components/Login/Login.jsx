@@ -13,6 +13,7 @@ import { IoIosSend } from "react-icons/io";
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [typeUser, setTypeUser] = useState();
 
   const url = "http://localhost:8080/api/login";
   const options = {
@@ -24,6 +25,7 @@ const Login = () => {
     body: JSON.stringify({
       username: username,
       password: password,
+      typeUser: typeUser,
     }),
   };
 
@@ -38,14 +40,30 @@ const Login = () => {
       alert("El campo contraseña no puede estar vacio");
       return;
     }
+    if (!typeUser) {
+      alert("Debe elegir un tipo de usuario");
+      return;
+    }
     try {
       const res = await fetch(url, options);
-      const data = await res.json();
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("rol", data.rol);
-      localStorage.setItem("idUsuario", data.idUsuario);
-      localStorage.setItem("nombre", data.nombre);
-      window.location.href = "/user/profile";
+      if(res.status === 200) {
+        const data = await res.json();
+        if(typeUser === 'profesional') {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("rol", data.rol);
+          localStorage.setItem("idUsuario", data.idUsuario);
+          localStorage.setItem("nombre", data.nombre);
+        } else {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("rol", data.rol);
+          localStorage.setItem("idUsuario", data.idUsuario);
+          localStorage.setItem("nombre", data.razonSocial);
+          localStorage.setItem("nombreRepresentante", data.nombreRepresentante);
+        }
+        window.location.href = "/user/profile";
+      } else {
+        alert('Usuario y contraseña incorrecto')
+      }
     } catch (error) {
       alert(error);
     }
@@ -89,6 +107,10 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </FloatingLabel>
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="typeUser" onChange={(e) => setTypeUser(e.target.value)}>
+                    <Form.Check inline name="typeUser" type="radio" label="Empresa" value="cliente" id="typeCliente" />
+                    <Form.Check inline name="typeUser" type="radio" label="Profesional" value="profesional" id="typeProfesional"/>
                   </Form.Group>
                   <Button onClick={login}>
                     Enviar <IoIosSend />

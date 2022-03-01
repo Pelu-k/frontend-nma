@@ -14,7 +14,7 @@ const DashboardProfessional = () => {
           <Accordion.Body>
             <div className="d-grid gap-2">
               <Button variant="outline-primary" onClick={() => window.location.href = "/user/advisory/create"}>Crear</Button>
-              <Button variant="outline-primary" onClick={() => window.location.href = "/user/advisory/update"}>Actualizar</Button>
+              <Button variant="outline-danger"  onClick={() => window.location.href = "/user/advisory/update"}>Cancelar</Button>
               <Button variant="outline-primary" onClick={() => window.location.href = "/user/advisory/activity"}>Actividades</Button>
             </div>
           </Accordion.Body>
@@ -24,7 +24,7 @@ const DashboardProfessional = () => {
           <Accordion.Body>
             <div className="d-grid gap-2">
               <Button variant="outline-primary" onClick={() => window.location.href = "/user/training/create"}>Crear</Button>
-              <Button variant="outline-primary" onClick={() => window.location.href = "/user/training/update"}>Actualizar</Button>
+              <Button variant="outline-danger"  onClick={() => window.location.href = "/user/training/update"}>Cancelar</Button>
               <Button variant="outline-primary" onClick={() => window.location.href = "/user/training/activity"}>Actividades</Button>
             </div>
           </Accordion.Body>

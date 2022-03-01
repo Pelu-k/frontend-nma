@@ -47,7 +47,7 @@ const EditActivityTraining = () => {
     setState(true);
     setTimeout(() => {
       setState(false);
-    }, 4000);
+    }, 3000);
   };
 
   const getActivityById = async () => {
@@ -55,6 +55,12 @@ const EditActivityTraining = () => {
       const res  = await fetch(`${URL_BASE}/activity/${id}`, OPTIONS_GET);
       const data = await res.json();
       setActivity(data);
+      setPrice(data.valor)
+    setType(data.tipo)
+    setCreateDate(data.fechaCreacion)
+    setDeadline(data.fechaLimite)
+    setEndDate(data.fechaTermino)
+    setDescActivity(data.descActividad)
     } catch (error) {
       console.log(error);
     }
@@ -91,7 +97,7 @@ const EditActivityTraining = () => {
   useEffect(() => {
     document.title = "Editar actividad";
     getActivityById();
-    setData();
+    // setData();
     changeState();
   }, []);
 
@@ -165,7 +171,7 @@ const EditActivityTraining = () => {
                       <Form.Control
                         type="date"
                         value={endDate}
-                        readOnly
+                        onChange={(e) => setEndDate(new Date(e.target.value))}
                       />
                     </FloatingLabel>
                   </Form.Group>

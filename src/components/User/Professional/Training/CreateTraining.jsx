@@ -71,6 +71,13 @@ const CreateTraining = () => {
 
   const createTrainig = async (e) => {
     e.preventDefault();
+    if(!nameTraining.trim()) { alert("El campo nombre capacitacion no puede estar vacio"); return ;}
+    if(!createDate.trim()) { alert("El campo fecha creacion no puede estar vacio"); return ;}
+    if(!deadline.trim()) { alert("El campo fecha limite no puede estar vacio"); return ;}
+    if(!endDate.trim()) { alert("El campo fecha termino no puede estar vacio"); return ;}
+    if(!price.trim()) { alert("El campo valor no puede estar vacio"); return ;}
+    if(!idClient.trim()) { alert("El campo cliente no puede estar vacio"); return ;}
+    // if(!checklist.trim()) { alert("El campo checklist no puede estar vacio"); return ;}
     try {
       const res  = await fetch(`${URL_BASE}/create-advisory`, OPTIONS_POST);
       const data = await res.text();
