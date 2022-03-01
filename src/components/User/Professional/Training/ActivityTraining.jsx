@@ -181,8 +181,8 @@ const ActivityTraining = () => {
                                     <td>{activity.tipo}</td>
                                     <td className="d-grid gap-2 d-md-flex justify-content-md-end">
                                       {activity.estado ===
-                                      "Cancelada" ? null : activity.estado ===
-                                        "Finalizada" ? null : (
+                                      "CANCELADA" ? null : activity.estado ===
+                                        "FINALIZADA" ? null : (
                                         <>
                                           <Button
                                             variant="outline-success"
