@@ -99,6 +99,7 @@ const AddActivityAdvisory = () => {
                   <FloatingLabel label="Fecha creacion" controlId="createDate">
                     <Form.Control
                       type="date"
+                      min={new Date().toJSON().slice(0,10)}
                       onChange={(e) => setCreateDate(new Date(e.target.value))}
                     />
                   </FloatingLabel>
@@ -107,6 +108,7 @@ const AddActivityAdvisory = () => {
                   <FloatingLabel label="Fecha limite" controlId="deadline">
                     <Form.Control
                       type="date"
+                      min={new Date().toJSON().slice(0,10)}
                       onChange={(e) => setDeadline(new Date(e.target.value))}
                     />
                   </FloatingLabel>
@@ -115,6 +117,7 @@ const AddActivityAdvisory = () => {
                   <FloatingLabel label="Fecha termino" controlId="endDate">
                     <Form.Control
                       type="date"
+                      min={new Date().toJSON().slice(0,10)}
                       onChange={(e) => setEndDate(new Date(e.target.value))}
                     />
                   </FloatingLabel>

@@ -145,6 +145,7 @@ const CreateTraining = () => {
                     >
                       <Form.Control
                         type="date"
+                        min={new Date().toJSON().slice(0,10)}
                         onChange={(e) => setCreateDate(e.target.value)}
                       />
                     </FloatingLabel>
@@ -153,6 +154,7 @@ const CreateTraining = () => {
                     <FloatingLabel label="Fecha limite" controlId="deadline">
                       <Form.Control
                         type="date"
+                        min={new Date().toJSON().slice(0,10)}
                         onChange={(e) => setDeadline(e.target.value)}
                       />
                     </FloatingLabel>
@@ -161,6 +163,7 @@ const CreateTraining = () => {
                     <FloatingLabel label="Fecha termino" controlId="endDate">
                       <Form.Control
                         type="date"
+                        min={new Date().toJSON().slice(0,10)}
                         onChange={(e) => setEndDate(e.target.value)}
                       />
                     </FloatingLabel>
