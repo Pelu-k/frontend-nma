@@ -32,7 +32,7 @@ const ProfessionalProfile = () => {
               <Loading />
             ) : (
               <div>
-
+                
               </div>
             )}
           </Col>
