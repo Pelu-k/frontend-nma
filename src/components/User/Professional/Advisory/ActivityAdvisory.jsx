@@ -7,6 +7,7 @@ import {
   Row,
   Table,
   Alert,
+  Badge,
 } from "react-bootstrap";
 import Loading from "../../../Utils/Loading/Loading";
 import DashboardProfessional from "../DashboardProfessional";
@@ -132,7 +133,37 @@ const ActivityAdvisory = () => {
                 <Accordion defaultActiveKey="0">
                   {consultancies.map((advisory, index) => (
                     <Accordion.Item eventKey={index}>
-                      <Accordion.Header>{advisory.nombre}</Accordion.Header>
+                      <Accordion.Header>
+                        {advisory.estado === "Cancelada" ? (
+                          <div>
+                            <Badge pill bg="danger">
+                              Cancelada
+                            </Badge>{" "}
+                            {advisory.nombre}
+                          </div>
+                        ) : advisory.estado === "Aprobado" ? (
+                          <div>
+                            <Badge pill bg="primary">
+                              Aprobado
+                            </Badge>{" "}
+                            {advisory.nombre}
+                          </div>
+                        ) : advisory.estado === "En aprobacion" ? (
+                          <div>
+                            <Badge pill bg="warning" text="dark">
+                              En aprobacion
+                            </Badge>{" "}
+                            {advisory.nombre}
+                          </div>
+                        ) : advisory.estado === "Finalizada" ? (
+                          <div>
+                            <Badge pill bg="success">
+                              Finalizada
+                            </Badge>{" "}
+                            {advisory.nombre}
+                          </div>
+                        ) : null}
+                      </Accordion.Header>
                       <Accordion.Body>
                         <div>
                           <Table>

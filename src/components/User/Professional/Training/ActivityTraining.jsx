@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Accordion,
   Alert,
+  Badge,
   Button,
   Col,
   Container,
@@ -131,7 +132,37 @@ const ActivityTraining = () => {
                 <Accordion>
                   {trainings.map((training, index) => (
                     <Accordion.Item eventKey={index}>
-                      <Accordion.Header>{training.nombre}</Accordion.Header>
+                      <Accordion.Header>
+                        {training.estado === "Cancelada" ? (
+                          <div>
+                            <Badge pill bg="danger">
+                              Cancelada
+                            </Badge>{" "}
+                            {training.nombre}
+                          </div>
+                        ) : training.estado === "Aprobado" ? (
+                          <div>
+                            <Badge pill bg="primary">
+                              Aprobado
+                            </Badge>{" "}
+                            {training.nombre}
+                          </div>
+                        ) : training.estado === "En aprobacion" ? (
+                          <div>
+                            <Badge pill bg="warning" text="dark">
+                              En aprobacion
+                            </Badge>{" "}
+                            {training.nombre}
+                          </div>
+                        ) : training.estado === "Finalizada" ? (
+                          <div>
+                            <Badge pill bg="success">
+                              Finalizada
+                            </Badge>{" "}
+                            {training.nombre}
+                          </div>
+                        ) : null}
+                      </Accordion.Header>
                       <Accordion.Body>
                         <div>
                           <Table>
