@@ -12,8 +12,8 @@ const DashboardClient = () => {
           <Accordion.Header>Asesoria</Accordion.Header>
           <Accordion.Body>
             <div className="d-grid gap-2">
-              <Button variant="outline-primary" onClick={() => window.location.href = "#!"}>Solicitar</Button>
-              <Button variant="outline-primary" onClick={() => window.location.href = "#!"}>Ver todas</Button>
+              <Button variant="outline-primary" onClick={() => window.location.href = "/user/advisory/request"}>Solicitar</Button>
+              <Button variant="outline-primary" onClick={() => window.location.href = "/user/advisory/getAll"}>Ver todas</Button>
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -21,14 +21,14 @@ const DashboardClient = () => {
           <Accordion.Header>Capacitacion</Accordion.Header>
           <Accordion.Body>
             <div className="d-grid gap-2">
-              <Button variant="outline-primary" onClick={() => window.location.href = "#!"}>Solicitar</Button>
-              <Button variant="outline-primary" onClick={() => window.location.href = "#!"}>Ver todas</Button>
+              <Button variant="outline-primary" onClick={() => window.location.href = "/user/training/request"}>Solicitar</Button>
+              <Button variant="outline-primary" onClick={() => window.location.href = "/user/training/getAll"}>Ver todas</Button>
             </div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
       <div className="d-grid gap-2 mt-2">
-        <Button variant="outline-danger" onClick={() => window.location.href = "/user/profile"}>Reportar accidente</Button>
+        <Button variant="outline-danger" onClick={() => window.location.href = "/user/accident/report"}>Reportar accidente</Button>
       </div>
     </div>
   );
