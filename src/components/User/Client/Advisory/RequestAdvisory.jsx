@@ -41,7 +41,7 @@ const RequestAdvisory = () => {
       const data = await res.text();
       if (res.status === 200) {
         alert(data);
-        window.location.reload();
+        window.location.href = "/user/request/all";
       }
     } catch (error) {
       console.log(error);
