@@ -32,6 +32,10 @@ const RequestAdvisory = () => {
   };
 
   const sendRequest = async () => {
+    if (desc.trim()) {
+      alert("El campo descripcion no puede estar vacio");
+      return;
+    }
     try {
       const res = await fetch(`${URL_BASE}/send-request`, OPTIONS_POST);
       const data = await res.text();

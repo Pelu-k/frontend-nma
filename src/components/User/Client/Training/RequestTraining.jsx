@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Button, Col, Container, FloatingLabel, Form, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Button,
+  Col,
+  Container,
+  FloatingLabel,
+  Form,
+  Row,
+} from "react-bootstrap";
 import { IoIosSend } from "react-icons/io";
 import DashboardClient from "../DashboardClient";
 
@@ -25,6 +32,10 @@ const RequestTraining = () => {
   };
 
   const sendRequest = async () => {
+    if (desc.trim()) {
+      alert("El campo descripcion no puede estar vacio");
+      return;
+    }
     try {
       const res = await fetch(`${URL_BASE}/send-request`, OPTIONS_POST);
       const data = await res.text();
