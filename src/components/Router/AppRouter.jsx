@@ -20,6 +20,7 @@ import EditActivityTraining             from "../User/Professional/Training/Edit
 import GetAllAdvisory                   from "../User/Client/Advisory/GetAllAdvisory";
 import GetAllTraining                   from "../User/Client/Training/GetAllTraining";
 import ViewRequest                      from "../User/Client/Request/ViewRequest";
+import ViewRequestP                     from "../User/Professional/Request/ViewRequestP";
 
 const AppRouter = () => {
   const [token, setToken] = useState(null);
@@ -44,6 +45,7 @@ const AppRouter = () => {
       <Route exact path="/user/training/activity"          element={<ActivityTraining />} />
       <Route exact path="/user/training/activity/add/:id"  element={<AddActivityTraining />} />
       <Route exact path="/user/training/activity/edit/:id" element={<EditActivityTraining />} />
+      <Route exact path="/user/request/all"                element={<ViewRequestP />} />
     </>,
     3: 
     <>

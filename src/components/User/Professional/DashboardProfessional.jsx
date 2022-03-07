@@ -30,6 +30,9 @@ const DashboardProfessional = () => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      <div className="d-grid gap-2 mt-2">
+        <Button variant="outline-primary" onClick={() => window.location.href = "/user/request/all"}>Ver solicitudes</Button>
+      </div>
     </div>
   );
 };
