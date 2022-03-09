@@ -9,8 +9,8 @@ const Loading = () => {
       className="mt-5"
       style={{
         display: "block",
-        "margin-right": "auto",
-        "margin-left": "auto",
+        "marginRight": "auto",
+        "marginLeft": "auto",
       }}
     />
   );
