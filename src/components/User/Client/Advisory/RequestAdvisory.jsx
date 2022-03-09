@@ -32,7 +32,7 @@ const RequestAdvisory = () => {
   };
 
   const sendRequest = async () => {
-    if (desc.trim()) {
+    if (!desc.trim()) {
       alert("El campo descripcion no puede estar vacio");
       return;
     }
