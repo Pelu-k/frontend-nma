@@ -7,13 +7,18 @@ import {
   Row,
   Table,
   Alert,
-  Badge,
 } from "react-bootstrap";
 import Loading from "../../../Utils/Loading/Loading";
 import DashboardProfessional from "../DashboardProfessional";
-import { AiOutlinePlus, AiOutlineCheck } from "react-icons/ai";
+import {
+  AiOutlinePlus,
+  AiOutlineCheck,
+  AiOutlineCheckSquare,
+} from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { MdModeEditOutline } from "react-icons/md";
+import StateType from "../../../Utils/StateType/StateType";
+import Checklist from "../../../Utils/Checklist/Checklist";
 
 const ActivityAdvisory = () => {
   //#region no TOCAR
@@ -22,6 +27,8 @@ const ActivityAdvisory = () => {
   const [state, setState] = useState(true);
   const [consultancies, setConsultancies] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [show, setShow] = useState(false);
+  const [checklist, setChecklist] = useState([]);
 
   const URL_BASE = "http://localhost:8080/api";
   const OPTIONS_GET = {
@@ -79,9 +86,11 @@ const ActivityAdvisory = () => {
           `${URL_BASE}/delete-activity/${id}`,
           OPTIONS_DELETE
         );
-        const data = await res.text();
-        alert(data);
-        window.location.reload();
+        if (res.status === 200) {
+          const data = await res.text();
+          alert(data);
+          window.location.reload();
+        }
       }
     } catch (error) {
       console.log(error);
@@ -90,13 +99,15 @@ const ActivityAdvisory = () => {
 
   const endActivity = async (id) => {
     try {
-      const res = await fetch(`${URL_BASE}/end-activity/${id}`, OPTIONS_PUT);
-      const data = await res.text();
-      if (res.status === 200) {
-        alert(data);
-        window.location.reload();
-      } else {
-        alert(data);
+      if (window.confirm("Esta seguro que desea finaliar la actividad")) {
+        const res = await fetch(`${URL_BASE}/end-activity/${id}`, OPTIONS_PUT);
+        if (res.status === 200) {
+          const data = await res.text();
+          alert(data);
+          window.location.reload();
+        } else {
+          alert("La actividad no pudo ser finalizada");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -109,6 +120,13 @@ const ActivityAdvisory = () => {
       setState(false);
     }, 3000);
   };
+
+  const isShowModal = (check) => {
+    setShow(true);
+    setChecklist(JSON.parse(check));
+  };
+
+
 
   useEffect(() => {
     document.title = "Actividades";
@@ -134,35 +152,12 @@ const ActivityAdvisory = () => {
                   {consultancies.map((advisory, index) => (
                     <Accordion.Item eventKey={index}>
                       <Accordion.Header>
-                        {advisory.estado === "Cancelada" ? (
-                          <div>
-                            <Badge pill bg="danger">
-                              Cancelada
-                            </Badge>{" "}
-                            {advisory.nombre}
-                          </div>
-                        ) : advisory.estado === "Aprobado" ? (
-                          <div>
-                            <Badge pill bg="primary">
-                              Aprobado
-                            </Badge>{" "}
-                            {advisory.nombre}
-                          </div>
-                        ) : advisory.estado === "En aprobacion" ? (
-                          <div>
-                            <Badge pill bg="warning" text="dark">
-                              En aprobacion
-                            </Badge>{" "}
-                            {advisory.nombre}
-                          </div>
-                        ) : advisory.estado === "Finalizada" ? (
-                          <div>
-                            <Badge pill bg="success">
-                              Finalizada
-                            </Badge>{" "}
-                            {advisory.nombre}
-                          </div>
-                        ) : null}
+                        <div>
+                          <StateType
+                            state={advisory.estado}
+                            name={advisory.nombre}
+                          />
+                        </div>
                       </Accordion.Header>
                       <Accordion.Body>
                         <div>
@@ -177,7 +172,9 @@ const ActivityAdvisory = () => {
                             <tbody>
                               <tr>
                                 <td>{advisory.nombreEmpresa}</td>
-                                <td>{advisory.estado}</td>
+                                <td>
+                                  <StateType state={advisory.estado} />
+                                </td>
                                 <td>
                                   <div className="d-grid justify-content-md-end">
                                     <Button
@@ -194,7 +191,7 @@ const ActivityAdvisory = () => {
                               </tr>
                             </tbody>
                           </Table>
-                          <Table>
+                          <Table borderless>
                             <thead>
                               <tr>
                                 <th>Nombre</th>
@@ -204,49 +201,72 @@ const ActivityAdvisory = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {activities.map((activity) =>
+                              {activities.map((activity, index) =>
                                 activity.idAsesoriaFk.toString() ===
                                 advisory.id ? (
                                   <tr>
                                     <td>{activity.nombre}</td>
-                                    <td>{activity.estado}</td>
+                                    <td>
+                                      <StateType state={activity.estado} />
+                                    </td>
                                     <td>{activity.tipo}</td>
                                     <td className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                      {activity.estado ===
-                                      "CANCELADA" ? null : activity.estado ===
+                                      {activity.estado.toUpperCase() ===
+                                      "CANCELADA" ? null : activity.estado.toUpperCase() ===
                                         "FINALIZADA" ? null : (
                                         <>
                                           <Button
+                                            variant="outline-primary"
+                                            className="mr-1"
+                                            size="sm"
+                                            onClick={() =>
+                                              isShowModal(activity.checklist)
+                                            }
+                                          >
+                                            <AiOutlineCheckSquare />
+                                          </Button>
+                                          <Button
                                             variant="outline-success"
                                             className="mr-1"
+                                            size="sm"
                                             onClick={() =>
                                               endActivity(activity.idActividad)
                                             }
                                           >
-                                            <AiOutlineCheck /> Finalizar
+                                            <AiOutlineCheck />
                                           </Button>
                                           <Button
                                             variant="outline-warning"
                                             className="mr-1"
+                                            size="sm"
                                             onClick={() =>
                                               (window.location.href = `/user/advisory/activity/edit/${activity.idActividad}`)
                                             }
                                           >
-                                            <MdModeEditOutline /> Editar
+                                            <MdModeEditOutline />
                                           </Button>
                                           <Button
                                             variant="outline-danger"
+                                            size="sm"
                                             onClick={() =>
                                               cancelActivity(
                                                 activity.idActividad
                                               )
                                             }
                                           >
-                                            <BsTrashFill /> Cancelar
+                                            <BsTrashFill />
                                           </Button>
                                         </>
                                       )}
                                     </td>
+                                    {activity.checklist !== null ? (
+                                      <Checklist
+                                        show={show}
+                                        onHide={() => setShow(false)}
+                                        checklist={checklist}
+                                        key={index}
+                                      />
+                                    ) : null}
                                   </tr>
                                 ) : null
                               )}
