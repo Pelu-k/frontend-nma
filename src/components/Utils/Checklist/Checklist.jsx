@@ -8,33 +8,43 @@ const Checklist = (props) => {
         <Modal.Title id="contained-modal-title-vcenter">Checklist</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {props.checklist.map((n) =>
-          n.s ? (
-            <>
-              <label>
-                <input
-                  type="checkbox"
-                  id="cbox1"
-                  value={n.t}
-                  checked={n.s}
-                  disabled
-                />{" "}
-                {n.t}
-              </label>
-              <br />
-            </>
-          ) : (
-            <>
-              <label>
-                <input type="checkbox" id="cbox1" value={n.t} /> {n.t}
-              </label>
-              <br />
-            </>
-          )
+        {props.checklist !== null ? (
+          <>
+            {props.checklist.map((n, index) => (
+              <>
+                <label key={index}>
+                  <input
+                    type="checkbox"
+                    id="cbox1"
+                    value={n.task}
+                  />{" "}
+                  {n.task}
+                </label>
+                <br />
+              </>
+            ))}
+          </>
+        ) : (
+          <>
+            <p>No hay actividades registradas</p>
+          </>
         )}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Guardar</Button>
+        {props.checklist !== null ? (
+          <>
+            <Button variant="danger" onClick={props.onHide}>
+              Cancelar
+            </Button>
+            <Button variant="primary">Guardar</Button>
+          </>
+        ) : (
+          <>
+            <Button variant="danger" onClick={props.onHide}>
+              Cerrar
+            </Button>
+          </>
+        )}
       </Modal.Footer>
     </Modal>
   );
