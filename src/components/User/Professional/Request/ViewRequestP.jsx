@@ -73,10 +73,10 @@ const ViewRequestP = () => {
                             </td>
                             <td>
                               {
-                                request.estado === 'EN APROBACION' ? (
+                                request.estado.toUpperCase() === 'EN APROBACION' ? (
                                   <><strong>ESTADO</strong>: <Badge pill bg="warning" text="dark">{request.estado}</Badge></>
                                 ) :
-                                request.estado === 'APROBADO' ? (
+                                request.estado.toUpperCase() === 'APROBADO' ? (
                                   <><strong>ESTADO</strong>: <Badge pill bg="success">{request.estado}</Badge></>
                                 ) : null
                               }
