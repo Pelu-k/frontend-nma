@@ -126,8 +126,6 @@ const ActivityAdvisory = () => {
     setChecklist(JSON.parse(check));
   };
 
-
-
   useEffect(() => {
     document.title = "Actividades";
     getAllConsultanciesByProfessionalId();

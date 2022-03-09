@@ -8,7 +8,11 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
-import { AiOutlineCheck, AiOutlineCheckSquare, AiOutlinePlus } from "react-icons/ai";
+import {
+  AiOutlineCheck,
+  AiOutlineCheckSquare,
+  AiOutlinePlus,
+} from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { MdModeEditOutline } from "react-icons/md";
 import Checklist from "../../../Utils/Checklist/Checklist";
@@ -19,11 +23,11 @@ import DashboardProfessional from "../DashboardProfessional";
 const ActivityTraining = () => {
   const idUsuario = localStorage.getItem("idUsuario");
 
-  const [state, setState]                 = useState(true);
-  const [trainings, setTrainings]         = useState([]);
-  const [activities, setActivities]       = useState([]);
-  const [show, setShow]                   = useState(false);
-  const [checklist, setChecklist]         = useState([]);
+  const [state, setState] = useState(true);
+  const [trainings, setTrainings] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [show, setShow] = useState(false);
+  const [checklist, setChecklist] = useState([]);
 
   const URL_BASE = "http://localhost:8080/api";
   const OPTIONS_GET = {
@@ -89,11 +93,11 @@ const ActivityTraining = () => {
           OPTIONS_DELETE
         );
         const data = await res.text();
-        if(res.status === 200) {
+        if (res.status === 200) {
           alert(data);
           window.location.reload();
         } else {
-          alert("La actividad no pudo ser cancelada")
+          alert("La actividad no pudo ser cancelada");
         }
       }
     } catch (error) {
@@ -103,7 +107,7 @@ const ActivityTraining = () => {
 
   const endActivity = async (id) => {
     try {
-      if(window.confirm("Esta seguro que desea finalizar la actividad")) {
+      if (window.confirm("Esta seguro que desea finalizar la actividad")) {
         const res = await fetch(`${URL_BASE}/end-activity/${id}`, OPTIONS_PUT);
         if (res.status === 200) {
           const data = await res.text();
@@ -121,7 +125,7 @@ const ActivityTraining = () => {
   const isShowModal = (check) => {
     setShow(true);
     setChecklist(JSON.parse(check));
-  }
+  };
 
   useEffect(() => {
     document.title = "Actividades";
@@ -148,7 +152,10 @@ const ActivityTraining = () => {
                     <Accordion.Item eventKey={index}>
                       <Accordion.Header>
                         <div>
-                          <StateType state={training.estado} name={training.nombre}/>
+                          <StateType
+                            state={training.estado}
+                            name={training.nombre}
+                          />
                         </div>
                       </Accordion.Header>
                       <Accordion.Body>
@@ -196,7 +203,9 @@ const ActivityTraining = () => {
                                 training.id ? (
                                   <tr>
                                     <td>{activity.nombre}</td>
-                                    <td><StateType state={activity.estado}/></td>
+                                    <td>
+                                      <StateType state={activity.estado} />
+                                    </td>
                                     <td>{activity.tipo}</td>
                                     <td className="d-grid gap-2 d-md-flex justify-content-md-end">
                                       {activity.estado.toUpperCase() ===
@@ -207,9 +216,11 @@ const ActivityTraining = () => {
                                             size="sm"
                                             variant="outline-primary"
                                             className="mr-1"
-                                            onClick={() => isShowModal(activity.checklist)}
+                                            onClick={() =>
+                                              isShowModal(activity.checklist)
+                                            }
                                           >
-                                            <AiOutlineCheckSquare /> 
+                                            <AiOutlineCheckSquare />
                                           </Button>
                                           <Button
                                             size="sm"
@@ -219,7 +230,7 @@ const ActivityTraining = () => {
                                               endActivity(activity.idActividad)
                                             }
                                           >
-                                            <AiOutlineCheck /> 
+                                            <AiOutlineCheck />
                                           </Button>
                                           <Button
                                             size="sm"
@@ -229,7 +240,7 @@ const ActivityTraining = () => {
                                               (window.location.href = `/user/training/activity/edit/${activity.idActividad}`)
                                             }
                                           >
-                                            <MdModeEditOutline /> 
+                                            <MdModeEditOutline />
                                           </Button>
                                           <Button
                                             size="sm"
@@ -240,13 +251,18 @@ const ActivityTraining = () => {
                                               )
                                             }
                                           >
-                                            <BsTrashFill /> 
+                                            <BsTrashFill />
                                           </Button>
                                         </>
                                       )}
                                     </td>
                                     {activity.checklist !== null ? (
-                                      <Checklist show={show} checklist={checklist} onHide={() => setShow(false)} key={index}/>
+                                      <Checklist
+                                        show={show}
+                                        checklist={checklist}
+                                        onHide={() => setShow(false)}
+                                        key={index}
+                                      />
                                     ) : null}
                                   </tr>
                                 ) : null
