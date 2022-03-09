@@ -23,6 +23,7 @@ const AddActivityAdvisory = () => {
   const [deadline, setDeadline]         = useState("");
   const [endDate, setEndDate]           = useState("");
   const [descActivity, setDescActivity] = useState("");
+  const [checklist, setChecklist]       = useState("");
 
   const URL_BASE = "http://localhost:8080/api";
   const OPTIONS_POST = {
@@ -40,6 +41,7 @@ const AddActivityAdvisory = () => {
       fechaLimite: deadline,
       fechaTermino: endDate,
       descActividad: descActivity,
+      checklist: JSON.stringify(checklist.split(",").map(c => ({task: c, state: false}))),
       idAsesoria: id,
     }),
   };
@@ -49,9 +51,13 @@ const AddActivityAdvisory = () => {
     e.preventDefault();
     try {
       const res  = await fetch(`${URL_BASE}/register-activity`, OPTIONS_POST);
-      const data = await res.text();
-      alert(data)
-      window.location.href = '/user/advisory/activity'
+      if(res.status === 200) {
+        const data = await res.text();
+        alert(data)
+        window.location.href = '/user/advisory/activity'
+      } else {
+        alert("No se pudo crear la actividad")
+      }
     } catch (error) {
       console.log(error)
     }
@@ -119,6 +125,14 @@ const AddActivityAdvisory = () => {
                       type="date"
                       min={new Date().toJSON().slice(0,10)}
                       onChange={(e) => setEndDate(new Date(e.target.value))}
+                    />
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <FloatingLabel label="Tareas a realizar (separadas por ,)" controlId="checklist">
+                    <Form.Control
+                      type="text"
+                      onChange={(e) => setChecklist(e.target.value)}
                     />
                   </FloatingLabel>
                 </Form.Group>
