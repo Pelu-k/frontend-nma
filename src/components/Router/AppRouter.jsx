@@ -47,7 +47,7 @@ const AppRouter = () => {
       <Route exact path="/user/training/activity/edit/:id" element={<EditActivityTraining />} />
       <Route exact path="/user/request/all"                element={<ViewRequestP />} />
     </>,
-    3: 
+    3: // Cliente
     <>
       <Route exact path="/user/profile"                    element={<User />} />
       <Route exact path="/user/advisory/request"           element={<RequestAdvisory />} />

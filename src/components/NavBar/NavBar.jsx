@@ -5,6 +5,8 @@ import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { AiOutlineMail } from "react-icons/ai";
 
 const NavBar = () => {
+  const rol = localStorage.getItem("rol");
+
   const [token, setToken]   = useState(null);
   const [nombre, setNombre] = useState("Jaimico");
 
@@ -19,6 +21,21 @@ const NavBar = () => {
       setNombre(localStorage.getItem("nombre"));
     }
   }, []);
+
+  const OPTIONS = {
+    2: // Professional
+      <>
+        <NavDropdown.Item href="/user/advisory/create">Crear asesoria</NavDropdown.Item>
+        <NavDropdown.Item href="/user/training/create">Crear capacitacion</NavDropdown.Item>
+        <NavDropdown.Item href="/user/request/all">Solicitudes</NavDropdown.Item>
+      </>,
+    3: // Cliente
+      <>
+        <NavDropdown.Item href="/user/advisory/request">Solicitar asesoria</NavDropdown.Item>
+        <NavDropdown.Item href="/user/training/request">Solicitar capacitacion</NavDropdown.Item>
+        <NavDropdown.Item href="/user/accident/report">Reportar accidente</NavDropdown.Item>
+      </>
+  }
 
   return (
     <div>
@@ -48,7 +65,7 @@ const NavBar = () => {
                   style={{ color: "white" }}
                 >
                   <NavDropdown.Item href="/user/profile">Perfil</NavDropdown.Item>
-                  <NavDropdown.Item href="#!">Dashboard</NavDropdown.Item>
+                  {OPTIONS[rol]}
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#!" onClick={logout}>
                     Logout
