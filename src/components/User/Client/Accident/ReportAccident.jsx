@@ -40,7 +40,7 @@ const ReportAccident = () => {
             <DashboardClient />
           </Col>
           <Col sm={9}>
-            <h2 className="text-center mb-5">Actividades</h2>
+            <h2 className="text-center mb-5">Reportar accidente</h2>
             <Form>
               <Form.Group className="mb-3">
                 <FloatingLabel label="Fecha" controlId="date">
