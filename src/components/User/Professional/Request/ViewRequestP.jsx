@@ -18,6 +18,14 @@ const ViewRequestP = () => {
       Authorization: localStorage.getItem("token"),
     },
   };
+  const OPTIONS_POST = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  }
 
   const getAllRequest = async () => {
     try {
@@ -30,6 +38,26 @@ const ViewRequestP = () => {
       console.log(error);
     }
   };
+
+  const approveRequest = async (idSolicitud, index) => {
+    try {
+      if(window.confirm("Esta seguro de aprobar esta solicitud?")) {
+        const res = await fetch(`${URL_BASE}/approve-request/${idSolicitud}`, OPTIONS_POST);
+        if(res.status === 200){
+          const data = await res.text();
+          alert(data)
+          localStorage.setItem("request", JSON.stringify(requests[index]))
+          if(requests[index].categoria === "ASESORIA") {
+            window.location.href = "/user/advisory/create"
+          } else {
+            window.location.href = "/user/training/create"
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const changeState = () => {
     setState(true);
@@ -59,8 +87,8 @@ const ViewRequestP = () => {
               <Alert variant="danger">No hay solicitudes</Alert>
             ) : (
               <div>
-                {requests.map((request) => (
-                  <Card className="mb-3">
+                {requests.map((request, index) => (
+                  <Card className="mb-3" key={index}>
                     <Card.Body>
                       <Table>
                         <tbody>
@@ -86,11 +114,15 @@ const ViewRequestP = () => {
                       </Table>
                       <Card.Text>{request.descripcion}</Card.Text>
                     </Card.Body>
-                    <Card.Footer>
-                      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <Button variant='outline-success'><AiOutlineCheck /> Aprobar</Button>
-                      </div>
-                    </Card.Footer>
+                    {
+                      request.estado.toUpperCase() === "APROBADO" ? null : (
+                        <Card.Footer>
+                          <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <Button variant='outline-success' onClick={() => approveRequest(request.idSolicitud, index)}><AiOutlineCheck /> Aprobar</Button>
+                          </div>
+                        </Card.Footer>
+                      )
+                    }
                   </Card>
                 ))}
               </div>
