@@ -7,15 +7,18 @@ import {
   Row,
   Container,
   Col,
+  Card,
 } from "react-bootstrap";
 import { IoIosSend } from "react-icons/io";
 import Loading from "../../../Utils/Loading/Loading";
 import DashboardProfessional from "../DashboardProfessional";
 
 const CreateAdvisory = () => {
+  const request = JSON.parse(localStorage.getItem('request'));
+
   const [state, setState]               = useState(true);
   const [nameAdvisory, setNameAdvisory] = useState("");
-  const [checklist, setChecklist]       = useState("");
+  // const [checklist, setChecklist]       = useState("");
   const [createDate, setCreateDate]     = useState("");
   const [deadline, setDeadline]         = useState("");
   const [endDate, setEndDate]           = useState("");
@@ -72,25 +75,21 @@ const CreateAdvisory = () => {
   const createAdvisory = async (e) => {
     e.preventDefault();
     // validar campos
-    if(!nameAdvisory.trim()) { alert("El campo nombre asesoria no puede estar vacio"); return ;}
-    if(!createDate.trim()) { alert("El campo fecha creacion no puede estar vacio"); return ;}
-    if(!deadline.trim()) { alert("El campo fecha limite no puede estar vacio"); return ;}
-    if(!endDate.trim()) { alert("El campo fecha termino no puede estar vacio"); return ;}
-    if(!price.trim()) { alert("El campo valor no puede estar vacio"); return ;}
-    if(!idClient.trim()) { alert("El campo cliente no puede estar vacio"); return;}
+    if(!nameAdvisory.trim()) { alert("El campo nombre asesoria no puede estar vacio"); return ; }
+    // if(!createDate.trim()) { alert("El campo fecha creacion no puede estar vacio"); return ; }
+    // if(!deadline.trim()) { alert("El campo fecha limite no puede estar vacio"); return ; }
+    // if(!endDate.trim()) { alert("El campo fecha termino no puede estar vacio"); return ; }
+    if(!price.trim()) { alert("El campo valor no puede estar vacio"); return ; }
+    if(!idClient.trim()) { alert("El campo cliente no puede estar vacio"); return ; }
     // if(!checklist.trim()) { alert("El campo checklist no puede estar vacio"); return ;}
     try {
       const res  = await fetch(`${URL_BASE}/create-advisory`, OPTIONS_POST);
-      const data = await res.text();
-      alert(data)
-      // Limpiar campos
-      setNameAdvisory("");
-      setChecklist("");
-      setCreateDate("");
-      setDeadline("");
-      setEndDate("");
-      setPrice("");
-      setIdClient(0);
+      if(res.status === 200) {
+        const data = await res.text();
+        alert(data)
+        if(request){ localStorage.removeItem("request"); }
+        window.location.href = "/user/advisory/activity"
+      }
     } catch (error) {
       console.log(error);
     }
@@ -114,104 +113,115 @@ const CreateAdvisory = () => {
             {state ? (
               <Loading />
             ) : (
-              <div>
-                <Form>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel
-                      label="Nombre asesoria"
-                      controlId="nameAdvisory"
-                    >
-                      <Form.Control
-                        type="text"
-                        onChange={(e) => setNameAdvisory(e.target.value)}
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    {customers.length > 0 ? (
-                      <FloatingLabel label="Cliente" controlId="idClient">
-                        <Form.Select
-                          onChange={(e) => setIdClient(e.target.value)}
-                        >
-                          <option disable>Seleccionar cliente</option>
-                          {customers.map((client) => (
-                            <option key={client.id} value={client.id}>
-                              {client.nombre}
-                            </option>
-                          ))}
-                        </Form.Select>
+              <>
+                {
+                  !request ? null : (
+                    <Card body className="mb-3">
+                      <p><strong>Razon Social:</strong> {request.razonSocial}</p>
+                      <p><strong>Categoria:</strong> {request.categoria}</p>
+                      <p><strong>Descripcion:</strong> {request.descripcion}</p>
+                    </Card>
+                  ) 
+                }
+                <div>
+                  <Form>
+                    <Form.Group className="mb-3">
+                      <FloatingLabel
+                        label="Nombre asesoria"
+                        controlId="nameAdvisory"
+                      >
+                        <Form.Control
+                          type="text"
+                          onChange={(e) => setNameAdvisory(e.target.value)}
+                        />
                       </FloatingLabel>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      {customers.length > 0 ? (
+                        <FloatingLabel label="Cliente" controlId="idClient">
+                          <Form.Select
+                            onChange={(e) => setIdClient(e.target.value)}
+                          >
+                            <option readOnly>Seleccionar cliente</option>
+                            {customers.map((client) => (
+                              <option key={client.id} value={client.id}>
+                                {client.nombre}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </FloatingLabel>
+                      ) : (
+                        <Alert variant="danger">
+                          Error al obtener la lista de clientes
+                        </Alert>
+                      )}
+                    </Form.Group>
+                    {/* <Form.Group className="mb-3">
+                      <FloatingLabel label="Checklist" controlId="checklist">
+                        <Form.Control
+                          type="text"
+                          onChange={(e) => setChecklist(e.target.value)}
+                        />
+                      </FloatingLabel>
+                    </Form.Group> */}
+                    <Form.Group className="mb-3">
+                      <FloatingLabel
+                        label="Fecha creacion"
+                        controlId="createDate"
+                      >
+                        <Form.Control
+                          type="date"
+                          min={new Date().toJSON().slice(0,10)}
+                          onChange={(e) =>
+                            setCreateDate(new Date(e.target.value))
+                          }
+                        />
+                      </FloatingLabel>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <FloatingLabel label="Fecha limite" controlId="deadline">
+                        <Form.Control
+                          type="date"
+                          min={new Date().toJSON().slice(0,10)}
+                          onChange={(e) => setDeadline(new Date(e.target.value))}
+                        />
+                      </FloatingLabel>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <FloatingLabel label="Fecha termino" controlId="endDate">
+                        <Form.Control
+                          type="date"
+                          min={new Date().toJSON().slice(0,10)}
+                          onChange={(e) => setEndDate(new Date(e.target.value))}
+                        />
+                      </FloatingLabel>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <FloatingLabel label="Valor" controlId="price">
+                        <Form.Control
+                          type="text"
+                          onChange={(e) => setPrice(e.target.value)}
+                        />
+                      </FloatingLabel>
+                    </Form.Group>
+                    {customers.length > 0 ? (
+                      <div className="d-grid gap-2">
+                        <Button
+                          variant="outline-primary"
+                          size="lg"
+                          onClick={createAdvisory}
+                        >
+                          <strong>Crear</strong> <IoIosSend />
+                        </Button>
+                      </div>
                     ) : (
                       <Alert variant="danger">
-                        Error al obtener la lista de clientes
+                        No es posible crear una asesoria
                       </Alert>
                     )}
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel label="Checklist" controlId="checklist">
-                      <Form.Control
-                        type="text"
-                        onChange={(e) => setChecklist(e.target.value)}
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel
-                      label="Fecha creacion"
-                      controlId="createDate"
-                    >
-                      <Form.Control
-                        type="date"
-                        min={new Date().toJSON().slice(0,10)}
-                        onChange={(e) =>
-                          setCreateDate(new Date(e.target.value))
-                        }
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel label="Fecha limite" controlId="deadline">
-                      <Form.Control
-                        type="date"
-                        min={new Date().toJSON().slice(0,10)}
-                        onChange={(e) => setDeadline(new Date(e.target.value))}
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel label="Fecha termino" controlId="endDate">
-                      <Form.Control
-                        type="date"
-                        min={new Date().toJSON().slice(0,10)}
-                        onChange={(e) => setEndDate(new Date(e.target.value))}
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <FloatingLabel label="Valor" controlId="price">
-                      <Form.Control
-                        type="text"
-                        onChange={(e) => setPrice(e.target.value)}
-                      />
-                    </FloatingLabel>
-                  </Form.Group>
-                  {customers.length > 0 ? (
-                    <div className="d-grid gap-2">
-                      <Button
-                        variant="outline-primary"
-                        size="lg"
-                        onClick={createAdvisory}
-                      >
-                        <strong>Crear</strong> <IoIosSend />
-                      </Button>
-                    </div>
-                  ) : (
-                    <Alert variant="danger">
-                      No es posible crear una asesoria
-                    </Alert>
-                  )}
-                </Form>
-              </div>
+                  </Form>
+                </div>
+              </>
             )}
           </Col>
         </Row>
